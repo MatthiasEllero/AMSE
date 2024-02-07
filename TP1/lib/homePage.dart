@@ -12,6 +12,11 @@ class HomePage extends StatelessWidget {
                     backgroundColor: Colors.blue,
                 ),
                 body: Text("test"),
+                bottomNavigationBar: BottomNavigationBar(
+                    items: const [
+                        
+                    ]
+                )
             )
         );
     }
