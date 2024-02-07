@@ -53,7 +53,7 @@ class _NavBarPageState
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('BottomNavigationBar Sample'),
+        title: Text('Mediathèque'),
       ),
       body: Center(
         child: _widgetOptions.elementAt(_selectedIndex),
