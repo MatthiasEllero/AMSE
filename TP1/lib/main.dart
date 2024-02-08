@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'homePage.dart';
+import 'Aboutuspage.dart';
 
 void main() => runApp(const BottomNavigationBarApp());
 
@@ -18,12 +19,10 @@ class NavBarPage extends StatefulWidget {
   const NavBarPage({super.key});
 
   @override
-  State<NavBarPage> createState() =>
-      _NavBarPageState();
+  State<NavBarPage> createState() => _NavBarPageState();
 }
 
-class _NavBarPageState
-    extends State<NavBarPage> {
+class _NavBarPageState extends State<NavBarPage> {
   int _selectedIndex = 0;
   static const TextStyle optionStyle =
       TextStyle(fontSize: 30, fontWeight: FontWeight.bold);
@@ -37,10 +36,7 @@ class _NavBarPageState
       'Index 2: School',
       style: optionStyle,
     ),
-    Text(
-      'Index 3: Settings',
-      style: optionStyle,
-    ),
+    AboutUsPage(),
   ];
 
   void _onItemTapped(int index) {
