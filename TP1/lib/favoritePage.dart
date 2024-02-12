@@ -1,26 +1,27 @@
-import "package:flutter/material.dart";
+import 'package:flutter/material.dart';
 import 'media.dart';
 import 'detailScreen.dart';
 
-class MediaPage extends StatefulWidget {
-  const MediaPage({Key? key}) : super(key: key);
+class FavoritePage extends StatefulWidget {
+  const FavoritePage({Key? key}) : super(key: key);
 
   @override
-  _MediaPageState createState() => _MediaPageState();
+  _FavoritePageState createState() => _FavoritePageState();
 }
 
-class _MediaPageState extends State<MediaPage> {
+class _FavoritePageState extends State<FavoritePage> {
   String _selectedGenre = 'All'; // Genre sélectionné par défaut
 
   @override
   Widget build(BuildContext context) {
-    List<Media> filteredMedia = _selectedGenre == 'All'
-        ? listeMedia
-        : listeMedia.where((media) => media.genre == _selectedGenre).toList();
+    List<Media> favoriteMedia = listeMedia.where((media) => media.favorite).toList();
+    List<Media> filteredFavorites = _selectedGenre == 'All'
+        ? favoriteMedia
+        : favoriteMedia.where((media) => media.genre == _selectedGenre).toList();
 
     return Scaffold(
       appBar: AppBar(
-        title: Text('Media List'),
+        title: Text('Favoris'),
       ),
       body: Column(
         children: [
@@ -40,14 +41,14 @@ class _MediaPageState extends State<MediaPage> {
           ),
           Expanded(
             child: ListView.builder(
-              itemCount: filteredMedia.length,
+              itemCount: filteredFavorites.length,
               itemBuilder: (BuildContext context, int index) {
                 return GestureDetector(
                   onTap: () {
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (context) => DetailScreen(media: filteredMedia[index]),
+                        builder: (context) => DetailScreen(media: filteredFavorites[index]),
                       ),
                     );
                   },
@@ -58,11 +59,11 @@ class _MediaPageState extends State<MediaPage> {
                         width: 100.0,
                         height: 150.0,
                         child: Image(
-                          image: NetworkImage(filteredMedia[index].image_url),
+                          image: NetworkImage(filteredFavorites[index].image_url),
                           fit: BoxFit.cover,
                         ),
                       ),
-                      title: Text(filteredMedia[index].name),
+                      title: Text(filteredFavorites[index].name),
                     ),
                   ),
                 );
@@ -74,4 +75,3 @@ class _MediaPageState extends State<MediaPage> {
     );
   }
 }
-

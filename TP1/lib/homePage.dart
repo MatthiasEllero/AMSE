@@ -4,11 +4,7 @@ class HomePage extends StatelessWidget {
   const HomePage({super.key});
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('AMSE TV'),
-      ),
-      body: SingleChildScrollView(
+    return SingleChildScrollView(
         // Permet le défilement
         padding:
             const EdgeInsets.all(16.0), // Ajoute un padding autour du contenu
@@ -104,7 +100,6 @@ class HomePage extends StatelessWidget {
             ),
           ],
         ),
-      ),
-    );
+      );
   }
 }

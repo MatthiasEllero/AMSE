@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'homePage.dart';
 import 'Aboutuspage.dart';
 import 'mediaPage.dart';
+import 'favoritePage.dart';
 
 void main() => runApp(const BottomNavigationBarApp());
 
@@ -30,10 +31,7 @@ class _NavBarPageState extends State<NavBarPage> {
   static const List<Widget> _widgetOptions = <Widget>[
     HomePage(),
     MediaPage(),
-    Text(
-      'Index 2: School',
-      style: optionStyle,
-    ),
+    FavoritePage(),
     AboutUsPage(),
   ];
 
@@ -47,7 +45,7 @@ class _NavBarPageState extends State<NavBarPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Mediathèque'),
+        title: Center(child:Text('AMSE TV')),
       ),
       body: Center(
         child: _widgetOptions.elementAt(_selectedIndex),
@@ -56,22 +54,22 @@ class _NavBarPageState extends State<NavBarPage> {
         items: const <BottomNavigationBarItem>[
           BottomNavigationBarItem(
             icon: Icon(Icons.home),
-            label: 'Accueil',
+            label: 'Home Page',
             backgroundColor: Colors.blue,
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.music_video),
-            label: 'Media',
+            label: 'Media List',
             backgroundColor: Colors.green,
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.favorite),
-            label: 'Favoris',
+            label: 'Favorite',
             backgroundColor: Colors.red,
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.settings),
-            label: 'À propos',
+            label: 'About Us',
             backgroundColor: Colors.purple,
           ),
         ],
