@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'homePage.dart';
 import 'Aboutuspage.dart';
+import 'mediaPage.dart';
 
 void main() => runApp(const BottomNavigationBarApp());
 
@@ -28,10 +29,7 @@ class _NavBarPageState extends State<NavBarPage> {
       TextStyle(fontSize: 30, fontWeight: FontWeight.bold);
   static const List<Widget> _widgetOptions = <Widget>[
     HomePage(),
-    Text(
-      'Index 1: Business',
-      style: optionStyle,
-    ),
+    MediaPage(),
     Text(
       'Index 2: School',
       style: optionStyle,
