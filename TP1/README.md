@@ -1,16 +1,16 @@
 # tp1
+AMSE TV
 
-A new Flutter project.
+Il peut y avoir des soucis d'affichage au niveau des images, redémarrer le compilage flutter de l'application résoud la plupart
+du temps le problème...
 
-## Getting Started
+Le logiciel permet de :
+- voir une liste de média
+- cliquer sur un média en particulier pour avoir les infos détaillées
+- dans les infos détaillées on peut ajouter le média en favoris (ou l'enlever des favoris)
+- la page favoris permet de voir seulement les médias mis en favoris
+- sur les deux pages média et favoris, on peut filtrer les médias par genre
 
-This project is a starting point for a Flutter application.
+Amusez-vous bien !
 
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+Achraf & Matthias

@@ -10,7 +10,7 @@ class FavoritePage extends StatefulWidget {
 }
 
 class _FavoritePageState extends State<FavoritePage> {
-  String _selectedGenre = 'All'; // Genre sélectionné par défaut
+  String _selectedGenre = 'All'; 
 
   @override
   Widget build(BuildContext context) {
@@ -21,7 +21,7 @@ class _FavoritePageState extends State<FavoritePage> {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text('Favoris'),
+        title: Text('Favorite List'),
       ),
       body: Column(
         children: [

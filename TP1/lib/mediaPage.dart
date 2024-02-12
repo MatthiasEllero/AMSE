@@ -10,7 +10,7 @@ class MediaPage extends StatefulWidget {
 }
 
 class _MediaPageState extends State<MediaPage> {
-  String _selectedGenre = 'All'; // Genre sélectionné par défaut
+  String _selectedGenre = 'All'; 
 
   @override
   Widget build(BuildContext context) {

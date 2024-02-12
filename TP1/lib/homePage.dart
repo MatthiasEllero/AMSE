@@ -5,55 +5,54 @@ class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
-        // Permet le défilement
         padding:
-            const EdgeInsets.all(16.0), // Ajoute un padding autour du contenu
+            const EdgeInsets.all(16.0), 
         child: Column(
           crossAxisAlignment:
-              CrossAxisAlignment.start, // Alignement du texte au début
+              CrossAxisAlignment.start, 
           children: <Widget>[
             const Text(
               'Welcome to AMSE TV, Your Ultimate Multimedia Companion!',
               style: TextStyle(
-                fontSize: 24, // Taille de police pour le titre
-                fontWeight: FontWeight.bold, // Police en gras pour le titre
+                fontSize: 24,
+                fontWeight: FontWeight.bold, 
               ),
             ),
-            const SizedBox(height: 20), // Espace entre le titre et l'image
+            const SizedBox(height: 20),
             Image.network(
               'https://play-lh.googleusercontent.com/ZwNZF0FGnDrBK-OPoc5rcOMtb-q-SbwsupUpXVTroYdoXtD2BbtUCo-05B0c0gYgK6M', // Remplacez par votre URL d'image
               width: double
-                  .infinity, // La largeur de l'image correspond à la largeur du conteneur
+                  .infinity,
               height:
-                  200, // Hauteur fixe pour l'image (ajustez selon le besoin)
+                  200,
               fit: BoxFit
-                  .cover, // Couvre l'espace alloué complètement, en coupant l'image si nécessaire
+                  .cover, 
             ),
-            const SizedBox(height: 20), // Espace entre l'image et le texte
+            const SizedBox(height: 20),
             const Text(
               'Dive into a vast sea of films, series, and mangas right at your fingertips. Explore the latest releases, timeless classics, and hidden gems tailored just for you. Whether you\'re in the mood for an epic adventure, a heartwarming story, or a thrilling mystery, your next favorite is just a tap away.',
               style: TextStyle(
-                fontSize: 16, // Taille de police pour le texte
+                fontSize: 16,
               ),
             ),
-            const SizedBox(height: 20), // Espace avant "What’s New?"
+            const SizedBox(height: 20),
             const Text(
               'What’s New?',
               style: TextStyle(
-                fontSize: 20, // Taille de police pour les titres de section
-                fontWeight: FontWeight.bold, // Titres de section en gras
+                fontSize: 20, 
+                fontWeight: FontWeight.bold,
               ),
             ),
             const SizedBox(
-                height: 10), // Espace avant la description de la section
+                height: 10), 
             const Text(
               'Discover what\'s trending, recent additions, and our top picks for you this week.',
               style: TextStyle(
-                fontSize: 16, // Taille de police pour le texte
+                fontSize: 16, 
               ),
             ),
             const SizedBox(
-                height: 20), // Ajoutez un espace avant "Explore Genres"
+                height: 20), 
             const Text(
               'Explore Genres',
               style: TextStyle(
