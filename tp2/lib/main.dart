@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:tp2/exercice1.dart'; // Import de Exercice_1.dart
 import 'package:tp2/exercice2a.dart'; // Import de Exercice_2a.dart
 import 'package:tp2/exercice2b.dart'; // Import de Exercice_2b.dart
+import 'package:tp2/exercice4.dart'; // Import de Exercice_2b.dart
 
 void main() {
   runApp(Exercice3());
@@ -24,6 +25,7 @@ class Exercice3 extends StatelessWidget {
         '/exercice1': (context) => Exercice1(), // Exercice 1
         '/exercice2a': (context) => Exercice2a(), // Exercice 2a
         '/exercice2b': (context) => Exercice2b(), // Exercice 2b
+        '/exercice4': (context) => Exercice4(), // Exercice 4
       },
     );
   }
@@ -41,6 +43,7 @@ class MyHomePage extends StatelessWidget {
           CardItem(title: "Exercice 1", route: '/exercice1'), // Route vers Exercice 1
           CardItem(title: "Exercice 2a", route: '/exercice2a'), // Route vers Exercice 2a
           CardItem(title: "Exercice 2b", route: '/exercice2b'), // Route vers Exercice 2b
+          CardItem(title: "Exercice 4", route: '/exercice4'), // Route vers Exercice 4
         ],
       ),
     );
