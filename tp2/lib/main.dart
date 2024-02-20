@@ -3,6 +3,8 @@ import 'package:tp2/exercice1.dart'; // Import de Exercice_1.dart
 import 'package:tp2/exercice2a.dart'; // Import de Exercice_2a.dart
 import 'package:tp2/exercice2b.dart'; // Import de Exercice_2b.dart
 import 'package:tp2/exercice4.dart'; // Import de Exercice_2b.dart
+import 'package:tp2/Exercice5a.dart'; // Import de Exercice 5a.dart
+import 'package:tp2/Exercice5c.dart'; // Import de Exercice 5c.dart
 
 void main() {
   runApp(Exercice3());
@@ -14,7 +16,8 @@ class Exercice3 extends StatelessWidget {
     return MaterialApp(
       title: 'TP2',
       theme: ThemeData(
-        primaryColor: Colors.blue, // Définir la couleur principale de l'application en bleu
+        primaryColor: Colors
+            .blue, // Définir la couleur principale de l'application en bleu
         appBarTheme: AppBarTheme(
           color: Colors.blue, // Définir la couleur de la barre d'app en bleu
         ),
@@ -26,6 +29,8 @@ class Exercice3 extends StatelessWidget {
         '/exercice2a': (context) => Exercice2a(), // Exercice 2a
         '/exercice2b': (context) => Exercice2b(), // Exercice 2b
         '/exercice4': (context) => Exercice4(), // Exercice 4
+        '/exercice5a': (context) => Exercice5a(), // Exercice 5a
+        '/exercice5c': (context) => Exercice5c(), // Exercice 5c
       },
     );
   }
@@ -40,10 +45,24 @@ class MyHomePage extends StatelessWidget {
       ),
       body: ListView(
         children: <Widget>[
-          CardItem(title: "Exercice 1", route: '/exercice1'), // Route vers Exercice 1
-          CardItem(title: "Exercice 2a", route: '/exercice2a'), // Route vers Exercice 2a
-          CardItem(title: "Exercice 2b", route: '/exercice2b'), // Route vers Exercice 2b
-          CardItem(title: "Exercice 4", route: '/exercice4'), // Route vers Exercice 4
+          CardItem(
+              title: "Exercice 1",
+              route: '/exercice1'), // Route vers Exercice 1
+          CardItem(
+              title: "Exercice 2a",
+              route: '/exercice2a'), // Route vers Exercice 2a
+          CardItem(
+              title: "Exercice 2b",
+              route: '/exercice2b'), // Route vers Exercice 2b
+          CardItem(
+              title: "Exercice 4",
+              route: '/exercice4'), // Route vers Exercice 4
+          CardItem(
+              title: "Exercice 5a",
+              route: '/exercice5a'), // Route vers Exercice 5b
+          CardItem(
+              title: "Exercice 5c",
+              route: '/exercice5c'), // Route vers Exercice 5c
         ],
       ),
     );
@@ -62,9 +81,11 @@ class CardItem extends StatelessWidget {
       child: ListTile(
         title: Text(title),
         onTap: () {
-          Navigator.pushNamed(context, route); // Navigation vers la page correspondante
+          Navigator.pushNamed(
+              context, route); // Navigation vers la page correspondante
         },
-        trailing: Icon(Icons.play_arrow), // Ajouter une icône "play" à droite de la carte
+        trailing: Icon(
+            Icons.play_arrow), // Ajouter une icône "play" à droite de la carte
       ),
     );
   }
