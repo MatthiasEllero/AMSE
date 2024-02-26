@@ -261,6 +261,14 @@ class _Exercice7State extends State<Exercice7> {
             ),
           ),
           Text(
+            'Déplacements: $moveCount',
+            style: TextStyle(fontSize: 20),
+          ),
+          Text(
+            'Temps: $_seconds secondes',
+            style: TextStyle(fontSize: 20),
+          ),
+          Text(
             'Temps: $_seconds secondes',
             style: TextStyle(fontSize: 20),
           ),
