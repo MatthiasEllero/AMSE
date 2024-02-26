@@ -30,7 +30,7 @@ class TileWidget extends StatelessWidget {
   final Tile tile;
   final VoidCallback onTap;
 
-  const TileWidget({required this.tile, required this.onTap});
+  const TileWidget({super.key, required this.tile, required this.onTap});
 
   @override
   Widget build(BuildContext context) {
@@ -44,12 +44,13 @@ class TileWidget extends StatelessWidget {
   }
 }
 
-void main() => runApp(MaterialApp(home: Exercice7()));
+void main() => runApp(const MaterialApp(home: Exercice7()));
 
 class Exercice7 extends StatefulWidget {
   const Exercice7({Key? key}) : super(key: key);
 
   @override
+  // ignore: library_private_types_in_public_api
   _Exercice7State createState() => _Exercice7State();
 }
 
@@ -125,7 +126,7 @@ class _Exercice7State extends State<Exercice7> {
   }
 
   void startTimer() {
-    _timer = Timer.periodic(Duration(seconds: 1), (timer) {
+    _timer = Timer.periodic(const Duration(seconds: 1), (timer) {
       setState(() {
         _seconds++;
       });
@@ -150,7 +151,7 @@ class _Exercice7State extends State<Exercice7> {
   }
 
   void moveTile(int x, int y) {
-    if (!grid[x][y].imageURL.isEmpty) {
+    if (grid[x][y].imageURL.isNotEmpty) {
       List<List<int>> deltas = [
         [-1, 0],
         [1, 0],
@@ -181,7 +182,7 @@ class _Exercice7State extends State<Exercice7> {
         context: context,
         builder: (BuildContext context) {
           return AlertDialog(
-            title: Text('Félicitations !'),
+            title: const Text('Félicitations !'),
             content: Text(
                 'Vous avez résolu le taquin en $moveCount déplacements et en $_seconds secondes !'),
             actions: [
@@ -189,7 +190,7 @@ class _Exercice7State extends State<Exercice7> {
                 onPressed: () {
                   Navigator.of(context).pop();
                 },
-                child: Text('OK'),
+                child: const Text('OK'),
               ),
             ],
           );
@@ -206,7 +207,7 @@ class _Exercice7State extends State<Exercice7> {
         actions: [
           TextButton(
             onPressed: () => Navigator.pop(context),
-            child: Text('Fermer'),
+            child: const Text('Fermer'),
           ),
         ],
       ),
@@ -229,11 +230,11 @@ class _Exercice7State extends State<Exercice7> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Taquin'),
+        title: const Text('Taquin'),
         centerTitle: true,
         actions: [
           IconButton(
-            icon: Icon(Icons.image),
+            icon: const Icon(Icons.image),
             onPressed: showOriginalImage,
           ),
         ],
@@ -262,24 +263,20 @@ class _Exercice7State extends State<Exercice7> {
           ),
           Text(
             'Déplacements: $moveCount',
-            style: TextStyle(fontSize: 20),
+            style: const TextStyle(fontSize: 20),
           ),
           Text(
             'Temps: $_seconds secondes',
-            style: TextStyle(fontSize: 20),
+            style: const TextStyle(fontSize: 20),
           ),
-          Text(
-            'Temps: $_seconds secondes',
-            style: TextStyle(fontSize: 20),
-          ),
-          SizedBox(height: 20),
+          const SizedBox(height: 20),
           Padding(
-            padding: EdgeInsets.only(bottom: 100),
+            padding: const EdgeInsets.only(bottom: 100),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 IconButton(
-                  icon: Icon(Icons.arrow_back),
+                  icon: const Icon(Icons.arrow_back),
                   iconSize: 60,
                   onPressed: () {
                     changeImage(-1);
@@ -305,16 +302,17 @@ class _Exercice7State extends State<Exercice7> {
                   },
                   icon: Icon(isGameStarted ? Icons.stop : Icons.play_arrow),
                   label: Text(isGameStarted ? 'Stop' : 'Start',
-                      style: TextStyle(fontSize: 30)),
+                      style: const TextStyle(fontSize: 30)),
                   style: ElevatedButton.styleFrom(
-                    padding: EdgeInsets.symmetric(horizontal: 20, vertical: 15),
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 20, vertical: 15),
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(30.0),
                     ),
                   ),
                 ),
                 IconButton(
-                  icon: Icon(Icons.arrow_forward),
+                  icon: const Icon(Icons.arrow_forward),
                   iconSize: 60,
                   onPressed: () {
                     changeImage(1);
