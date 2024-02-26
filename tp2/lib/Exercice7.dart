@@ -55,6 +55,7 @@ class Exercice7 extends StatefulWidget {
 class _Exercice7State extends State<Exercice7> {
   late List<List<Tile>> grid;
   late List<List<Tile>> initialGrid;
+  late String originalImageURL;
   int gridSize = 3;
   double sliderValue = 3.0;
   bool isGameStarted = false;
@@ -64,6 +65,8 @@ class _Exercice7State extends State<Exercice7> {
     int emptyX = 0;
     int emptyY = 0;
 
+    originalImageURL =
+        'https://as1.ftcdn.net/v2/jpg/01/41/12/10/1000_F_141121004_IpVWZBqHwvqIrMhJcohvDCM0D7S1NqkW.jpg';
     grid = List.generate(
       gridSize,
       (i) => List.generate(
@@ -79,10 +82,7 @@ class _Exercice7State extends State<Exercice7> {
           if (i == emptyY && j == emptyX) {
             return Tile('', Alignment.center, 0);
           } else {
-            return Tile(
-                'https://as1.ftcdn.net/v2/jpg/01/41/12/10/1000_F_141121004_IpVWZBqHwvqIrMhJcohvDCM0D7S1NqkW.jpg',
-                alignment,
-                1 / (gridSize + 1));
+            return Tile(originalImageURL, alignment, 1 / (gridSize + 1));
           }
         },
       ),
@@ -169,12 +169,33 @@ class _Exercice7State extends State<Exercice7> {
     }
   }
 
+  void showOriginalImage() {
+    showDialog(
+      context: context,
+      builder: (_) => AlertDialog(
+        content: Image.network(originalImageURL),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.pop(context),
+            child: Text('Fermer'),
+          ),
+        ],
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: Text('Taquin'),
         centerTitle: true,
+        actions: [
+          IconButton(
+            icon: Icon(Icons.image),
+            onPressed: showOriginalImage,
+          ),
+        ],
       ),
       body: Column(
         children: [
