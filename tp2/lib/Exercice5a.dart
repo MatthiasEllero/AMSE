@@ -28,16 +28,16 @@ class TileGridView extends StatelessWidget {
   Widget build(BuildContext context) {
     return GridView.builder(
       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-        crossAxisCount: 4, // Nombre de colonnes
-        childAspectRatio: 1.0, // Ratio pour les tuiles carrées
-        crossAxisSpacing: 4.0, // Espace horizontal entre les tuiles
-        mainAxisSpacing: 4.0, // Espace vertical entre les tuiles
+        crossAxisCount: 4, 
+        childAspectRatio: 1.0, 
+        crossAxisSpacing: 4.0,
+        mainAxisSpacing: 4.0, 
       ),
-      itemCount: 12, // Nombre total de tuiles
+      itemCount: 12, 
       itemBuilder: (context, index) {
         return Container(
           color: Colors.blue[
-              100 * ((index % 8) + 1)], // Couleur différente pour chaque tuile
+              100 * ((index % 8) + 1)], 
           child: Center(
             child: Text(
               'Tuile $index',

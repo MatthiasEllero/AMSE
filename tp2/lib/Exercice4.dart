@@ -16,8 +16,8 @@ class Tile {
         child: Container(
           child: Align(
             alignment: this.alignment,
-            widthFactor: 0.8,
-            heightFactor: 0.8,
+            widthFactor: 0.2,
+            heightFactor: 0.2,
             child: Image.network(this.imageURL),
           ),
         ),
@@ -27,7 +27,7 @@ class Tile {
 }
 
 Tile tile = new Tile(
-    'https://picsum.photos/512', Alignment(0, 0));
+    'https://www.boutique-namaste.com/cdn/shop/articles/animal-totem-aigle_1600x.jpg?v=1670453691', Alignment(0, 0));
 
 class Exercice4 extends StatelessWidget {
   @override
@@ -47,7 +47,7 @@ class Exercice4 extends StatelessWidget {
                 child: this.createTileWidgetFrom(tile))),
         Container(
             height: 200,
-            child: Image.network('https://picsum.photos/512',
+            child: Image.network('https://www.boutique-namaste.com/cdn/shop/articles/animal-totem-aigle_1600x.jpg?v=1670453691',
                 fit: BoxFit.cover))
       ])),
     );

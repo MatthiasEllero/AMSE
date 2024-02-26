@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:tp2/exercice1.dart'; // Import de Exercice_1.dart
-import 'package:tp2/exercice2a.dart'; // Import de Exercice_2a.dart
-import 'package:tp2/exercice2b.dart'; // Import de Exercice_2b.dart
-import 'package:tp2/exercice4.dart'; // Import de Exercice_2b.dart
-import 'package:tp2/Exercice5a.dart'; // Import de Exercice 5a.dart
-import 'package:tp2/Exercice5c.dart'; // Import de Exercice 5c.dart
+import 'package:tp2/exercice1.dart'; 
+import 'package:tp2/exercice2a.dart'; 
+import 'package:tp2/exercice2b.dart'; 
+import 'package:tp2/exercice4.dart';
+import 'package:tp2/Exercice5a.dart'; 
+import 'package:tp2/Exercice5b.dart';
+import 'package:tp2/Exercice5c.dart'; 
 
 void main() {
   runApp(Exercice3());
@@ -17,7 +18,7 @@ class Exercice3 extends StatelessWidget {
       title: 'TP2',
       theme: ThemeData(
         primaryColor: Colors
-            .blue, // Définir la couleur principale de l'application en bleu
+            .blue, 
         appBarTheme: AppBarTheme(
           color: Colors.blue, // Définir la couleur de la barre d'app en bleu
         ),
@@ -30,7 +31,7 @@ class Exercice3 extends StatelessWidget {
         '/exercice2b': (context) => Exercice2b(), // Exercice 2b
         '/exercice4': (context) => Exercice4(), // Exercice 4
         '/exercice5a': (context) => Exercice5a(), // Exercice 5a
-        // '/exercice5b' : (context) => Exercice5b(), //Exercice 5b
+        '/exercice5b' : (context) => Exercice5b(), //Exercice 5b
         '/exercice5c': (context) => Exercice5c(), // Exercice 5c
       },
     );
@@ -61,9 +62,9 @@ class MyHomePage extends StatelessWidget {
           CardItem(
               title: "Exercice 5a",
               route: '/exercice5a'), // Route vers Exercice 5a
-          // CardItem(
-          //     title: "Exercice 5b",
-          //     route: '/exercice5b'),
+          CardItem(
+              title: "Exercice 5b",
+              route: '/exercice5b'),
           CardItem(
               title: "Exercice 5c",
               route: '/exercice5c'), // Route vers Exercice 5c
