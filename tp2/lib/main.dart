@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:tp2/exercice1.dart'; 
-import 'package:tp2/exercice2a.dart'; 
-import 'package:tp2/exercice2b.dart'; 
+import 'package:tp2/exercice1.dart';
+import 'package:tp2/exercice2a.dart';
+import 'package:tp2/exercice2b.dart';
 import 'package:tp2/exercice4.dart';
-import 'package:tp2/Exercice5a.dart'; 
+import 'package:tp2/Exercice5a.dart';
 import 'package:tp2/Exercice5b.dart';
-import 'package:tp2/Exercice5c.dart'; 
+import 'package:tp2/Exercice5c.dart';
+import 'package:tp2/Exercice6a.dart';
+import 'package:tp2/Exercice6b.dart';
 
 void main() {
   runApp(Exercice3());
@@ -17,8 +19,7 @@ class Exercice3 extends StatelessWidget {
     return MaterialApp(
       title: 'TP2',
       theme: ThemeData(
-        primaryColor: Colors
-            .blue, 
+        primaryColor: Colors.blue,
         appBarTheme: AppBarTheme(
           color: Colors.blue, // Définir la couleur de la barre d'app en bleu
         ),
@@ -31,8 +32,10 @@ class Exercice3 extends StatelessWidget {
         '/exercice2b': (context) => Exercice2b(), // Exercice 2b
         '/exercice4': (context) => Exercice4(), // Exercice 4
         '/exercice5a': (context) => Exercice5a(), // Exercice 5a
-        '/exercice5b' : (context) => Exercice5b(), //Exercice 5b
+        '/exercice5b': (context) => Exercice5b(), //Exercice 5b
         '/exercice5c': (context) => Exercice5c(), // Exercice 5c
+        '/exercice6a': (context) => Exercice6a(), // Exercice 6a
+        '/exercice6b': (context) => Exercice6b(), // Exercice 6c
       },
     );
   }
@@ -62,12 +65,16 @@ class MyHomePage extends StatelessWidget {
           CardItem(
               title: "Exercice 5a",
               route: '/exercice5a'), // Route vers Exercice 5a
-          CardItem(
-              title: "Exercice 5b",
-              route: '/exercice5b'),
+          CardItem(title: "Exercice 5b", route: '/exercice5b'),
           CardItem(
               title: "Exercice 5c",
               route: '/exercice5c'), // Route vers Exercice 5c
+          CardItem(
+              title: "Exercice 6a",
+              route: '/exercice6a'), // Route vers Exercice 6a
+          CardItem(
+              title: "Exercice 6b",
+              route: '/exercice6b'), // Route vers Exercice 6b
         ],
       ),
     );
