@@ -88,6 +88,7 @@ class _Exercice7State extends State<Exercice7> {
       ),
     );
     initialGrid = List.generate(gridSize, (i) => List.from(grid[i]));
+
   }
 
   @override
@@ -97,12 +98,13 @@ class _Exercice7State extends State<Exercice7> {
   }
 
   void shuffleTiles() {
-    initialGrid = List.generate(gridSize, (i) => List.from(grid[i]));
+    isGameStarted = false;
     for (int i = 0; i < 1000; i++) {
       int x = random.nextInt(gridSize);
       int y = random.nextInt(gridSize);
       moveTile(x, y);
     }
+    isGameStarted = true;
   }
 
   bool isPuzzleSolved() {
@@ -143,11 +145,8 @@ class _Exercice7State extends State<Exercice7> {
       }
     }
 
-    if (isGameStarted && !isPuzzleSolvedOnce) {
-      if (isPuzzleSolved()) {
-        setState(() {
-          isPuzzleSolvedOnce = true;
-        });
+    if (isGameStarted && isPuzzleSolved()) {
+        isGameStarted = false;
         showDialog(
           context: context,
           builder: (BuildContext context) {
@@ -165,7 +164,6 @@ class _Exercice7State extends State<Exercice7> {
             );
           },
         );
-      }
     }
   }
 
@@ -209,34 +207,43 @@ class _Exercice7State extends State<Exercice7> {
                 int x = index % gridSize, y = index ~/ gridSize;
                 return TileWidget(
                   tile: grid[x][y],
-                  onTap: () => moveTile(x, y),
+                  onTap: () {
+                    if (isGameStarted) moveTile(x, y);
+                  },
                 );
               },
             ),
           ),
-          Slider(
-            min: 2,
-            max: 8,
-            divisions: 6,
-            value: sliderValue,
-            label: '${sliderValue.toInt()}x${sliderValue.toInt()}',
-            onChanged: (double newValue) {
-              setState(() {
-                sliderValue = newValue;
-                gridSize = newValue.toInt();
-                initGrid();
-              });
-            },
-          ),
+          if (!isGameStarted)
+            Slider(
+              min: 2,
+              max: 8,
+              divisions: 6,
+              value: sliderValue,
+              label: '${sliderValue.toInt()}x${sliderValue.toInt()}',
+              onChanged: (double newValue) {
+                setState(() {
+                  sliderValue = newValue;
+                  gridSize = newValue.toInt();
+                  initGrid();
+                });
+              },
+            ),
+          SizedBox(height: 10),
           ElevatedButton(
             onPressed: () {
               setState(() {
-                shuffleTiles();
-                isGameStarted = true;
-                isPuzzleSolvedOnce = false;
+                if (isGameStarted) {
+                  // Arrêter le jeu
+                  isGameStarted = false;
+                  initGrid();
+                } else {
+                  // Démarrer le jeu
+                  shuffleTiles();
+                }
               });
             },
-            child: Text('Start'),
+            child: Text(isGameStarted ? 'Stop' : 'Start'),
           ),
         ],
       ),
