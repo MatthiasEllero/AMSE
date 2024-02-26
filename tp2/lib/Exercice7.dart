@@ -166,7 +166,8 @@ class _Exercice7State extends State<Exercice7> {
         builder: (BuildContext context) {
           return AlertDialog(
             title: const Text('Félicitations !'),
-            content: const Text('Vous avez résolu le taquin !'),
+            content: Text(
+                'Vous avez résolu le taquin en $moveCount  déplacements !'),
             actions: [
               TextButton(
                 onPressed: () {
@@ -242,6 +243,10 @@ class _Exercice7State extends State<Exercice7> {
                 );
               },
             ),
+          ),
+          Text(
+            'Déplacements: $moveCount',
+            style: TextStyle(fontSize: 20),
           ),
           const SizedBox(height: 20),
           Padding(
