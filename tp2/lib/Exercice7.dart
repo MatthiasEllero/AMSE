@@ -261,16 +261,19 @@ class _Exercice7State extends State<Exercice7> {
               },
             ),
           ),
-          IconButton(
-            icon: const Icon(Icons.casino),
-            iconSize: 60,
-            onPressed: () {
-              originalImageURL =
-                  'https://picsum.photos/512?random=${DateTime.now().millisecondsSinceEpoch}';
-              setState(() {
-                initGrid();
-              });
-            },
+          Visibility(
+            visible: !isGameStarted,
+            child: IconButton(
+              icon: const Icon(Icons.casino),
+              iconSize: 60,
+              onPressed: () {
+                originalImageURL =
+                    'https://picsum.photos/512?random=${DateTime.now().millisecondsSinceEpoch}';
+                setState(() {
+                  initGrid();
+                });
+              },
+            ),
           ),
           Text(
             'Déplacements: $moveCount',
@@ -286,12 +289,15 @@ class _Exercice7State extends State<Exercice7> {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                IconButton(
-                  icon: const Icon(Icons.arrow_back),
-                  iconSize: 60,
-                  onPressed: () {
-                    changeImage(-1);
-                  },
+                Visibility(
+                  visible: !isGameStarted,
+                  child: IconButton(
+                    icon: const Icon(Icons.arrow_back),
+                    iconSize: 60,
+                    onPressed: () {
+                      changeImage(-1);
+                    },
+                  ),
                 ),
                 ElevatedButton.icon(
                   onPressed: () {
@@ -320,30 +326,36 @@ class _Exercice7State extends State<Exercice7> {
                     ),
                   ),
                 ),
-                IconButton(
-                  icon: const Icon(Icons.arrow_forward),
-                  iconSize: 60,
-                  onPressed: () {
-                    changeImage(1);
-                  },
+                Visibility(
+                  visible: !isGameStarted,
+                  child: IconButton(
+                    icon: const Icon(Icons.arrow_forward),
+                    iconSize: 60,
+                    onPressed: () {
+                      changeImage(1);
+                    },
+                  ),
                 ),
               ],
             ),
           ),
-          Slider(
-            min: 2,
-            max: 8,
-            divisions: 6,
-            value: sliderValue,
-            label: '${sliderValue.toInt()}x${sliderValue.toInt()}',
-            onChanged: (double newValue) {
-              setState(() {
-                sliderValue = newValue;
-                gridSize = newValue.toInt();
-                initGrid();
-              });
-            },
-          ),
+          Visibility(
+            visible: !isGameStarted,
+            child: Slider(
+              min: 2,
+              max: 8,
+              divisions: 6,
+              value: sliderValue,
+              label: '${sliderValue.toInt()}x${sliderValue.toInt()}',
+              onChanged: (double newValue) {
+                setState(() {
+                  sliderValue = newValue;
+                  gridSize = newValue.toInt();
+                  initGrid();
+                });
+              },
+            ),
+          )
         ],
       ),
     );
