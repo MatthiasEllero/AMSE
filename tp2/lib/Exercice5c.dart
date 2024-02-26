@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 void main() {
-  runApp(Exercice5c());
+  runApp(const Exercice5c());
 }
 
 class Exercice5c extends StatefulWidget {

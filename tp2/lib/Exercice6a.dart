@@ -29,8 +29,6 @@ class TileWidget extends StatelessWidget {
   }
 }
 
-void main() => runApp(const MaterialApp(home: Exercice6a()));
-
 class Exercice6a extends StatefulWidget {
   const Exercice6a({super.key});
 

@@ -56,7 +56,6 @@ class Exercice7 extends StatefulWidget {
 class _Exercice7State extends State<Exercice7> {
   late List<List<Tile>> grid;
   late List<List<Tile>> initialGrid;
-  late String originalImageURL;
   int gridSize = 3;
   double sliderValue = 3.0;
   bool isGameStarted = false;
@@ -79,12 +78,12 @@ class _Exercice7State extends State<Exercice7> {
     'assets/voiture.jpg',
   ];
   int currentImageIndex = 0;
+  String originalImageURL = 'assets/avion.jpg';
 
   void initGrid() {
     int emptyX = 0;
     int emptyY = 0;
 
-    originalImageURL = imageUrls[currentImageIndex];
     grid = List.generate(
       gridSize,
       (i) => List.generate(
@@ -232,6 +231,7 @@ class _Exercice7State extends State<Exercice7> {
     } else if (currentImageIndex >= imageUrls.length) {
       currentImageIndex = 0;
     }
+    originalImageURL = imageUrls[currentImageIndex];
     setState(() {
       initGrid();
       moveCount = 0;
@@ -279,6 +279,17 @@ class _Exercice7State extends State<Exercice7> {
                 );
               },
             ),
+          ),
+          IconButton(
+            icon: const Icon(Icons.casino),
+            iconSize: 60,
+            onPressed: () {
+              originalImageURL =
+                  'https://picsum.photos/512?random=${DateTime.now().millisecondsSinceEpoch}';
+              setState(() {
+                initGrid();
+              });
+            },
           ),
           Text(
             'Déplacements: $moveCount',
