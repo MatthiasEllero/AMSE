@@ -84,6 +84,8 @@ class _Exercice7State extends State<Exercice7> {
   String originalImageURL = 'assets/avion.jpg';
 
   void initGrid() {
+    int emptyX = 0;
+    int emptyY = 0;
     grid = List.generate(
       gridSize,
       (i) => List.generate(
@@ -241,15 +243,10 @@ class _Exercice7State extends State<Exercice7> {
 
   void undoMove() {
     if (moveHistory.isNotEmpty) {
-      final lastMove = moveHistory.removeLast();
-      final x = lastMove[0];
-      final y = lastMove[1];
-      setState(() {
-        grid[x][y] = grid[emptyX][emptyY];
-        grid[emptyX][emptyY] = Tile('', Alignment.center, 0);
-      });
-      moveCount--; // Décrémenter le compteur de déplacements
+      List<int> lastMove = moveHistory.removeLast();
+      moveTile(lastMove[0], lastMove[1], addToHistory: false);
     }
+    // Décrémenter le compteur de déplacements
     if (moveCount < 0) {
       moveCount = 0; // Assurer que le compteur ne devienne pas négatif
     }
@@ -308,7 +305,7 @@ class _Exercice7State extends State<Exercice7> {
             style: const TextStyle(fontSize: 20),
           ),
           Text(
-            'Temps : $_seconds secondes',
+            'Temps :$_seconds secondes',
             style: const TextStyle(fontSize: 20),
           ),
           const SizedBox(height: 20),
@@ -333,7 +330,6 @@ class _Exercice7State extends State<Exercice7> {
                         moveCount = 0;
                         _seconds = 0;
                         moveHistory.clear();
-                        stopTimer();
                       } else {
                         shuffleTiles();
                       }
