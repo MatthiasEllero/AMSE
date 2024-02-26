@@ -268,10 +268,6 @@ class _Exercice7State extends State<Exercice7> {
             'Temps: $_seconds secondes',
             style: TextStyle(fontSize: 20),
           ),
-          Text(
-            'Temps: $_seconds secondes',
-            style: TextStyle(fontSize: 20),
-          ),
           SizedBox(height: 20),
           Padding(
             padding: EdgeInsets.only(bottom: 100),
