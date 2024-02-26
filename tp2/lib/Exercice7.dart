@@ -54,11 +54,11 @@ class Exercice7 extends StatefulWidget {
 
 class _Exercice7State extends State<Exercice7> {
   late List<List<Tile>> grid;
-  int gridSize = 3; // Taille initiale de la grille
+  late List<List<Tile>> initialGrid;
+  int gridSize = 3;
   double sliderValue = 3.0;
 
   void initGrid() {
-  // Randomly choose an index for the empty tile
   int emptyX = 0;
   int emptyY = 0;
 
@@ -75,7 +75,7 @@ class _Exercice7State extends State<Exercice7> {
           -1.0 + 1 / (gridSize) + 2 * x * ratio,
         );
         if (i == emptyY && j == emptyX) {
-          return Tile('', Alignment.center, 0); // Empty tile
+          return Tile('', Alignment.center, 0);
         } else {
           return Tile(
               'https://as1.ftcdn.net/v2/jpg/01/41/12/10/1000_F_141121004_IpVWZBqHwvqIrMhJcohvDCM0D7S1NqkW.jpg',
@@ -85,6 +85,7 @@ class _Exercice7State extends State<Exercice7> {
       },
     ),
   );
+  initialGrid = List.generate(gridSize, (i) => List.from(grid[i]));
 }
 
   @override
@@ -92,6 +93,32 @@ class _Exercice7State extends State<Exercice7> {
     super.initState();
     initGrid();
   }
+
+  void shuffleTiles() {
+  List<Tile> flattenedGrid = grid.expand((element) => element).toList();
+  flattenedGrid.shuffle(random);
+
+  int index = 0;
+  for (int i = 0; i < gridSize; i++) {
+    for (int j = 0; j < gridSize; j++) {
+      grid[i][j] = flattenedGrid[index];
+      index++;
+    }
+  }
+}
+
+    bool isPuzzleSolved() {
+  for (int i = 0; i < gridSize; i++) {
+    for (int j = 0; j < gridSize; j++) {
+      if (grid[i][j].imageURL != initialGrid[i][j].imageURL ||
+          grid[i][j].alignment != initialGrid[i][j].alignment ||
+          grid[i][j].ratio != initialGrid[i][j].ratio) {
+        return false;
+      }
+    }
+  }
+  return true;
+}
 
   void moveTile(int x, int y) {
     if (!grid[x][y].imageURL.isEmpty) {
@@ -116,6 +143,26 @@ class _Exercice7State extends State<Exercice7> {
           break;
         }
       }
+    }
+
+    if (isPuzzleSolved()) {
+      showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            title: Text('Félicitations !'),
+            content: Text('Vous avez résolu le taquin !'),
+            actions: [
+              TextButton(
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+                child: Text('OK'),
+              ),
+            ],
+          );
+        },
+      );
     }
   }
 
@@ -156,6 +203,14 @@ class _Exercice7State extends State<Exercice7> {
                 initGrid();
               });
             },
+          ),
+          ElevatedButton(
+            onPressed: () {
+              setState(() {
+                shuffleTiles();
+              });
+            },
+            child: Text('Start'),
           ),
         ],
       ),
