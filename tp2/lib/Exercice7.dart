@@ -300,7 +300,7 @@ class _Exercice7State extends State<Exercice7> {
             style: const TextStyle(fontSize: 20),
           ),
           Text(
-            'Timer :$_timer',
+            'Temps :$_seconds secondes',
             style: const TextStyle(fontSize: 20),
           ),
           const SizedBox(height: 20),
@@ -309,15 +309,12 @@ class _Exercice7State extends State<Exercice7> {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Visibility(
-                  visible: !isGameStarted,
-                  child: IconButton(
-                    icon: const Icon(Icons.arrow_back),
-                    iconSize: 60,
-                    onPressed: () {
-                      changeImage(-1);
-                    },
-                  ),
+                IconButton(
+                  icon: const Icon(Icons.arrow_back),
+                  iconSize: 60,
+                  onPressed: () {
+                    changeImage(-1);
+                  },
                 ),
                 ElevatedButton.icon(
                   onPressed: () {
@@ -344,15 +341,12 @@ class _Exercice7State extends State<Exercice7> {
                     ),
                   ),
                 ),
-                Visibility(
-                  visible: !isGameStarted,
-                  child: IconButton(
-                    icon: const Icon(Icons.arrow_forward),
-                    iconSize: 60,
-                    onPressed: () {
-                      changeImage(1);
-                    },
-                  ),
+                IconButton(
+                  icon: const Icon(Icons.arrow_forward),
+                  iconSize: 60,
+                  onPressed: () {
+                    changeImage(1);
+                  },
                 ),
                 const SizedBox(width: 20),
                 ElevatedButton.icon(
