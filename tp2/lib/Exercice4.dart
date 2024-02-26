@@ -27,7 +27,7 @@ class Tile {
 }
 
 Tile tile = new Tile(
-    'https://www.boutique-namaste.com/cdn/shop/articles/animal-totem-aigle_1600x.jpg?v=1670453691', Alignment(0, 0));
+    'https://www.boutique-namaste.com/cdn/shop/articles/animal-totem-aigle_1600x.jpg?v=1670453691', Alignment(-1, -1));
 
 class Exercice4 extends StatelessWidget {
   @override

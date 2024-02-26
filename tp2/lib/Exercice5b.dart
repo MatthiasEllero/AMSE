@@ -8,6 +8,12 @@ class Exercice5b extends StatelessWidget {
       home: Scaffold(
         appBar: AppBar(
           title: Text('Plateau de Tuiles avec Image'),
+          leading: IconButton(
+          icon: Icon(Icons.arrow_back),
+          onPressed: () {
+            Navigator.pop(context); // Utilisation de Navigator.pop() pour revenir en arrière
+          },
+        ),
         ),
         body: TileGridView(),
       ),

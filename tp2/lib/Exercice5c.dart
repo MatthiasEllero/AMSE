@@ -1,5 +1,3 @@
-import 'dart:async';
-
 import 'package:flutter/material.dart';
 
 void main() {
@@ -11,47 +9,8 @@ class Exercice5c extends StatefulWidget {
   _MyAppState createState() => _MyAppState();
 }
 
-class Tile {
-  String imageURL = "";
-  Alignment alignment = Alignment.center;
-  double tileRatio;
-
-  Tile(String url, Alignment align, {required this.tileRatio}) {
-    this.imageURL = url;
-    this.alignment = align;
-  }
-
-  Widget croppedImageTile(Size imageSize, int crossAxisCount, int index) {
-    final double imageWidth = imageSize.width;
-    final double imageHeight = imageSize.height;
-
-    final double tileWidth = imageWidth / crossAxisCount;
-    final double tileHeight = imageHeight / crossAxisCount;
-
-    final int x = index % crossAxisCount; // Colonne
-    final int y = index ~/ crossAxisCount; // Ligne
-
-    final double offsetX = tileWidth * x;
-    final double offsetY = tileHeight * y;
-
-    return FittedBox(
-      fit: BoxFit.fill,
-      child: ClipRect(
-        child: Container(
-          child: Align(
-            alignment: Alignment(-1.0 + 2 * (offsetX / imageWidth), -1.0 + 2 * (offsetY / imageHeight)),
-            widthFactor: tileWidth / imageWidth,
-            heightFactor: tileHeight / imageHeight,
-            child: Image.network(this.imageURL),
-          ),
-        ),
-      ),
-    );
-  }
-}
-
 class _MyAppState extends State<Exercice5c> {
-  double _sliderValue = 4; // Commencez avec une grille 4x4
+  double _sliderValue = 4; 
 
   @override
   Widget build(BuildContext context) {
@@ -59,6 +18,12 @@ class _MyAppState extends State<Exercice5c> {
       home: Scaffold(
         appBar: AppBar(
           title: Text('Plateau de Tuiles Dynamique'),
+          leading: IconButton(
+          icon: Icon(Icons.arrow_back),
+          onPressed: () {
+            Navigator.pop(context); 
+          },
+        ),
         ),
         body: Column(
           children: [
@@ -68,7 +33,8 @@ class _MyAppState extends State<Exercice5c> {
             Slider(
               min: 1,
               max: 8,
-              divisions: 7,
+              divisions:
+                  7, 
               value: _sliderValue,
               label: '${_sliderValue.toInt()}',
               onChanged: (value) {
@@ -84,6 +50,34 @@ class _MyAppState extends State<Exercice5c> {
   }
 }
 
+class Tile {
+  String imageURL = "";
+  Alignment alignment = new Alignment(0,0);
+  double? ratio;
+
+  Tile(String url, Alignment align, double ratio){
+    this.imageURL = url;
+    this.alignment = align;
+    this.ratio = ratio;
+  }
+
+  Widget croppedImageTile() {
+    return FittedBox(
+      fit: BoxFit.fill,
+      child: ClipRect(
+        child: Container(
+          child: Align(
+            alignment: this.alignment,
+            widthFactor: ratio,
+            heightFactor: ratio,
+            child: Image.network(this.imageURL),
+          ),
+        ),
+      ),
+    );
+  }
+}
+
 class TileGridView extends StatelessWidget {
   final int crossAxisCount;
 
@@ -91,43 +85,31 @@ class TileGridView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return FutureBuilder(
-      future: _getImageSize(),
-      builder: (context, AsyncSnapshot<Size> snapshot) {
-        if (snapshot.hasData) {
-          final imageSize = snapshot.data!;
-          return GridView.builder(
-            gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-              crossAxisCount: crossAxisCount,
-              childAspectRatio: 1.0,
-              crossAxisSpacing: 4.0,
-              mainAxisSpacing: 4.0,
-            ),
-            itemCount: crossAxisCount * crossAxisCount,
-            itemBuilder: (context, index) {
-              final Tile tile = Tile(
-                'https://as1.ftcdn.net/v2/jpg/01/41/12/10/1000_F_141121004_IpVWZBqHwvqIrMhJcohvDCM0D7S1NqkW.jpg',
-                Alignment.center,
-                tileRatio: 1 / crossAxisCount,
-              );
-              return tile.croppedImageTile(imageSize, crossAxisCount, index);
-            },
-          );
-        } else {
-          return Center(child: CircularProgressIndicator());
+    return GridView.builder(
+      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+        crossAxisCount: crossAxisCount,
+        childAspectRatio: 1.0,
+        crossAxisSpacing: 0,
+        mainAxisSpacing: 0,
+      ),
+      itemCount:
+          crossAxisCount * crossAxisCount,
+      itemBuilder: (context, index) {
+        
+        final int x = index % crossAxisCount; 
+        final int y = index ~/ crossAxisCount;
+        double ratio = 1/crossAxisCount;
+       
+        final Alignment alignment = Alignment(-1.0 + 1/(crossAxisCount) + 2*x*ratio , -1.0 + 1/(crossAxisCount) + 2*y*ratio);
+       
+        final Tile tile = Tile(
+          'https://as1.ftcdn.net/v2/jpg/01/41/12/10/1000_F_141121004_IpVWZBqHwvqIrMhJcohvDCM0D7S1NqkW.jpg',
+          alignment,
+          1/(crossAxisCount+1)
+        );
+        
+        return tile.croppedImageTile(); 
         }
-      },
     );
-  }
-
-  Future<Size> _getImageSize() async {
-    Completer<Size> completer = Completer();
-    Image image = Image.network('https://as1.ftcdn.net/v2/jpg/01/41/12/10/1000_F_141121004_IpVWZBqHwvqIrMhJcohvDCM0D7S1NqkW.jpg');
-    image.image.resolve(ImageConfiguration()).addListener(
-      ImageStreamListener((ImageInfo info, bool _) {
-        completer.complete(Size(info.image.width.toDouble(), info.image.height.toDouble()));
-      }),
-    );
-    return completer.future;
   }
 }
