@@ -62,7 +62,7 @@ flutter:
   assets:
      - assets/bateau.jpg
      - assets/image1.jpg
-     - assets/IMT.png
+     - assets/IMT.jpg
      - assets/voiture.jpg
      - assets/monalisa.jpg
      - assets/Lille.jpg
