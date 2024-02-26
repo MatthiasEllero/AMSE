@@ -60,14 +60,26 @@ class _Exercice7State extends State<Exercice7> {
   double sliderValue = 3.0;
   bool isGameStarted = false;
   bool isPuzzleSolvedOnce = false;
-  int moveCount = 0;
+
+  List<String> imageUrls = [
+    'assets/avion.jpg',
+    'assets/bateau.jpg',
+    'assets/image1.jpg',
+    'assets/IMT.jpg',
+    'assets/Lille.jpg',
+    'assets/mbappé.jpg',
+    'assets/monalisa.jpg',
+    'assets/Pisetour.jpg',
+    'assets/toureifeel.jpg',
+    'assets/voiture.jpg',
+  ];
+  int currentImageIndex = 0;
 
   void initGrid() {
     int emptyX = 0;
     int emptyY = 0;
 
-    originalImageURL =
-        'https://as1.ftcdn.net/v2/jpg/01/41/12/10/1000_F_141121004_IpVWZBqHwvqIrMhJcohvDCM0D7S1NqkW.jpg';
+    originalImageURL = imageUrls[currentImageIndex];
     grid = List.generate(
       gridSize,
       (i) => List.generate(
@@ -152,8 +164,7 @@ class _Exercice7State extends State<Exercice7> {
         builder: (BuildContext context) {
           return AlertDialog(
             title: Text('Félicitations !'),
-            content:
-                Text('Vous avez résolu le taquin en $moveCount déplacements !'),
+            content: Text('Vous avez résolu le taquin !'),
             actions: [
               TextButton(
                 onPressed: () {
@@ -181,6 +192,18 @@ class _Exercice7State extends State<Exercice7> {
         ],
       ),
     );
+  }
+
+  void changeImage(int delta) {
+    currentImageIndex += delta;
+    if (currentImageIndex < 0) {
+      currentImageIndex = imageUrls.length - 1;
+    } else if (currentImageIndex >= imageUrls.length) {
+      currentImageIndex = 0;
+    }
+    setState(() {
+      initGrid();
+    });
   }
 
   @override
@@ -218,44 +241,65 @@ class _Exercice7State extends State<Exercice7> {
               },
             ),
           ),
-          // Affichage du compteur de déplacements
-          Text(
-            'Déplacements: $moveCount',
-            style: TextStyle(fontSize: 20),
-          ),
-
-          if (!isGameStarted)
-            Slider(
-              min: 2,
-              max: 8,
-              divisions: 6,
-              value: sliderValue,
-              label: '${sliderValue.toInt()}x${sliderValue.toInt()}',
-              onChanged: (double newValue) {
-                setState(() {
-                  sliderValue = newValue;
-                  gridSize = newValue.toInt();
-                  initGrid();
-                });
-              },
+          SizedBox(height: 20),
+          Padding(
+            padding: EdgeInsets.only(bottom: 100),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                IconButton(
+                  icon: Icon(Icons.arrow_back),
+                  iconSize: 60,
+                  onPressed: () {
+                    changeImage(-1);
+                  },
+                ),
+                ElevatedButton.icon(
+                  onPressed: () {
+                    setState(() {
+                      if (isGameStarted) {
+                        // Arrêter le jeu
+                        isGameStarted = false;
+                        initGrid();
+                      } else {
+                        // Démarrer le jeu
+                        shuffleTiles();
+                      }
+                    });
+                  },
+                  icon: Icon(isGameStarted ? Icons.stop : Icons.play_arrow),
+                  label: Text(isGameStarted ? 'Stop' : 'Start',
+                      style: TextStyle(fontSize: 30)),
+                  style: ElevatedButton.styleFrom(
+                    padding: EdgeInsets.symmetric(horizontal: 20, vertical: 15),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(30.0),
+                    ),
+                  ),
+                ),
+                IconButton(
+                  icon: Icon(Icons.arrow_forward),
+                  iconSize: 60,
+                  onPressed: () {
+                    changeImage(1);
+                  },
+                ),
+              ],
             ),
-          SizedBox(height: 10),
-          ElevatedButton(
-            onPressed: () {
+          ),
+          Slider(
+            min: 2,
+            max: 8,
+            divisions: 6,
+            value: sliderValue,
+            label: '${sliderValue.toInt()}x${sliderValue.toInt()}',
+            onChanged: (double newValue) {
               setState(() {
-                if (isGameStarted) {
-                  // Arrêter le jeu
-                  isGameStarted = false;
-                  initGrid();
-                  moveCount = 0;
-                } else {
-                  // Démarrer le jeu
-                  shuffleTiles();
-                  moveCount = 0; // Réinitialiser le compteur de déplacements
-                }
+                sliderValue = newValue;
+                gridSize = newValue.toInt();
+                initGrid();
               });
             },
-            child: Text(isGameStarted ? 'Stop' : 'Start'),
           ),
         ],
       ),
