@@ -31,7 +31,7 @@ class TileWidget extends StatelessWidget {
         margin: const EdgeInsets.all(4),
         color: tile.isEmpty ? Colors.white : tile.color,
         child: const Padding(
-          padding: EdgeInsets.all(20), // Ajusté pour des tuiles plus petites
+          padding: EdgeInsets.all(20),
         ),
       ),
     );

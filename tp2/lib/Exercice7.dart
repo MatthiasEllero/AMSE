@@ -265,7 +265,6 @@ class _Exercice7State extends State<Exercice7> {
             icon: const Icon(Icons.casino),
             iconSize: 60,
             onPressed: () {
-              // Ajouter un paramètre de requête unique à l'URL pour obtenir une nouvelle image à chaque fois
               originalImageURL =
                   'https://picsum.photos/512?random=${DateTime.now().millisecondsSinceEpoch}';
               setState(() {
@@ -298,14 +297,12 @@ class _Exercice7State extends State<Exercice7> {
                   onPressed: () {
                     setState(() {
                       if (isGameStarted) {
-                        // Arrêter le jeu
                         isGameStarted = false;
                         initGrid();
                         moveCount = 0;
                         _seconds = 0;
                         stopTimer();
                       } else {
-                        // Démarrer le jeu
                         shuffleTiles();
                         moveCount = 0;
                         _seconds = 0;

@@ -11,47 +11,52 @@ import 'package:tp2/Exercice6b.dart';
 import 'package:tp2/Exercice7.dart';
 
 void main() {
-  runApp(Exercice3());
+  runApp(const Exercice3());
 }
 
 class Exercice3 extends StatelessWidget {
+  const Exercice3({super.key});
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       title: 'TP2',
       theme: ThemeData(
         primaryColor: Colors.blue,
-        appBarTheme: AppBarTheme(
+        appBarTheme: const AppBarTheme(
           color: Colors.blue, // Définir la couleur de la barre d'app en bleu
         ),
       ),
-      initialRoute: '/', 
+      initialRoute: '/',
       routes: {
-        '/': (context) => MyHomePage(), 
-        '/exercice1': (context) => Exercice1(), 
-        '/exercice2a': (context) => Exercice2a(), 
-        '/exercice2b': (context) => Exercice2b(), 
-        '/exercice4' : (context) => Exercice4(), 
-        '/exercice5a': (context) => Exercice5a(), 
-        '/exercice5b': (context) => Exercice5b(), 
-        '/exercice5c': (context) => Exercice5c(), 
-        '/exercice6a': (context) => Exercice6a(), 
-        '/exercice6b': (context) => Exercice6b(), 
-        '/exercice7' : (context) => Exercice7(), 
+        '/': (context) => const MyHomePage(),
+        '/exercice1': (context) => const Exercice1(),
+        '/exercice2a': (context) => const Exercice2a(),
+        '/exercice2b': (context) => const Exercice2b(),
+        '/exercice4': (context) => const Exercice4(),
+        '/exercice5a': (context) => const Exercice5a(),
+        '/exercice5b': (context) => const Exercice5b(),
+        '/exercice5c': (context) => const Exercice5c(),
+        '/exercice6a': (context) => const Exercice6a(),
+        '/exercice6b': (context) => const Exercice6b(),
+        '/exercice7': (context) => const Exercice7(),
       },
     );
   }
 }
 
 class MyHomePage extends StatelessWidget {
+  const MyHomePage({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("TP2 - Liste Exercice (Exercice 3)"),
+        title: const Text("TP2 - Liste Exercice (Exercice 3)"),
       ),
       body: ListView(
-        children: <Widget>[
+        children: const <Widget>[
           CardItem(
               title: "Exercice 1",
               route: '/exercice1'), // Route vers Exercice 1
@@ -90,7 +95,7 @@ class CardItem extends StatelessWidget {
   final String title;
   final String route;
 
-  CardItem({required this.title, required this.route});
+  const CardItem({super.key, required this.title, required this.route});
 
   @override
   Widget build(BuildContext context) {
@@ -101,7 +106,7 @@ class CardItem extends StatelessWidget {
           Navigator.pushNamed(
               context, route); // Navigation vers la page correspondante
         },
-        trailing: Icon(
+        trailing: const Icon(
             Icons.play_arrow), // Ajouter une icône "play" à droite de la carte
       ),
     );
