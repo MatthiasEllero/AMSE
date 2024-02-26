@@ -16,8 +16,8 @@ class Tile {
         child: Container(
           child: Align(
             alignment: this.alignment,
-            widthFactor: 0.3,
-            heightFactor: 0.3,
+            widthFactor: 0.8,
+            heightFactor: 0.8,
             child: Image.network(this.imageURL),
           ),
         ),

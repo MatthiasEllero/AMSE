@@ -7,16 +7,21 @@ void main() {
 class Exercice5a extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      home: Scaffold(
-        appBar: AppBar(
-          title: Text('Plateau de Tuiles'),
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('Plateau de Tuiles'),
+        leading: IconButton(
+          icon: Icon(Icons.arrow_back),
+          onPressed: () {
+            Navigator.pop(context); // Utilisation de Navigator.pop() pour revenir en arrière
+          },
         ),
-        body: TileGridView(),
       ),
+      body: TileGridView(),
     );
   }
 }
+
 
 class TileGridView extends StatelessWidget {
   @override

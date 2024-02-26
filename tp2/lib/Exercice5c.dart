@@ -18,6 +18,12 @@ class _MyAppState extends State<Exercice5c> {
       home: Scaffold(
         appBar: AppBar(
           title: Text('Plateau de Tuiles Dynamique'),
+          leading: IconButton(
+          icon: Icon(Icons.arrow_back),
+          onPressed: () {
+            Navigator.pop(context); // Utilisation de Navigator.pop() pour revenir en arrière
+          },
+        ),
         ),
         body: Column(
           children: [
