@@ -30,6 +30,7 @@ class Exercice3 extends StatelessWidget {
         '/exercice2b': (context) => Exercice2b(), // Exercice 2b
         '/exercice4': (context) => Exercice4(), // Exercice 4
         '/exercice5a': (context) => Exercice5a(), // Exercice 5a
+        '/exercice5b' : (context) => Exercice5b(), //Exercice 5b
         '/exercice5c': (context) => Exercice5c(), // Exercice 5c
       },
     );
@@ -60,6 +61,9 @@ class MyHomePage extends StatelessWidget {
           CardItem(
               title: "Exercice 5a",
               route: '/exercice5a'), // Route vers Exercice 5b
+          CardItem(
+              title: "Exercice 5b",
+              route: '/exercice5b'),
           CardItem(
               title: "Exercice 5c",
               route: '/exercice5c'), // Route vers Exercice 5c
