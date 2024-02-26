@@ -60,6 +60,7 @@ class _Exercice7State extends State<Exercice7> {
   double sliderValue = 3.0;
   bool isGameStarted = false;
   bool isPuzzleSolvedOnce = false;
+  int moveCount = 0;
 
   void initGrid() {
     int emptyX = 0;
@@ -88,7 +89,6 @@ class _Exercice7State extends State<Exercice7> {
       ),
     );
     initialGrid = List.generate(gridSize, (i) => List.from(grid[i]));
-
   }
 
   @override
@@ -146,24 +146,25 @@ class _Exercice7State extends State<Exercice7> {
     }
 
     if (isGameStarted && isPuzzleSolved()) {
-        isGameStarted = false;
-        showDialog(
-          context: context,
-          builder: (BuildContext context) {
-            return AlertDialog(
-              title: Text('Félicitations !'),
-              content: Text('Vous avez résolu le taquin !'),
-              actions: [
-                TextButton(
-                  onPressed: () {
-                    Navigator.of(context).pop();
-                  },
-                  child: Text('OK'),
-                ),
-              ],
-            );
-          },
-        );
+      isGameStarted = false;
+      showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            title: Text('Félicitations !'),
+            content:
+                Text('Vous avez résolu le taquin en $moveCount déplacements !'),
+            actions: [
+              TextButton(
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+                child: Text('OK'),
+              ),
+            ],
+          );
+        },
+      );
     }
   }
 
@@ -208,12 +209,21 @@ class _Exercice7State extends State<Exercice7> {
                 return TileWidget(
                   tile: grid[x][y],
                   onTap: () {
-                    if (isGameStarted) moveTile(x, y);
+                    if (isGameStarted) {
+                      moveTile(x, y);
+                      moveCount++; // Incrémenter le compteur de déplacements
+                    }
                   },
                 );
               },
             ),
           ),
+          // Affichage du compteur de déplacements
+          Text(
+            'Déplacements: $moveCount',
+            style: TextStyle(fontSize: 20),
+          ),
+
           if (!isGameStarted)
             Slider(
               min: 2,
@@ -237,9 +247,11 @@ class _Exercice7State extends State<Exercice7> {
                   // Arrêter le jeu
                   isGameStarted = false;
                   initGrid();
+                  moveCount = 0;
                 } else {
                   // Démarrer le jeu
                   shuffleTiles();
+                  moveCount = 0; // Réinitialiser le compteur de déplacements
                 }
               });
             },
