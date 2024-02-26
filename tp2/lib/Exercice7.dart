@@ -170,7 +170,7 @@ class _Exercice7State extends State<Exercice7> {
             grid[newX][newY].imageURL.isEmpty) {
           setState(() {
             if (addToHistory) {
-              moveHistory.add([x, y]);
+              moveHistory.add([newX, newY]);
             }
             grid[newX][newY] = grid[x][y];
             grid[x][y] = Tile('', Alignment.center, 0);
@@ -357,19 +357,22 @@ class _Exercice7State extends State<Exercice7> {
                   },
                 ),
                 const SizedBox(width: 20),
-                ElevatedButton.icon(
-                  onPressed: undoMove,
-                  icon: const Icon(Icons.undo),
-                  label: const Text('Undo'),
-                  style: ElevatedButton.styleFrom(
-                    padding: const EdgeInsets.symmetric(
-                        horizontal: 20, vertical: 15),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(30.0),
-                    ),
-                  ),
-                ),
               ],
+            ),
+          ),
+          Visibility(
+            visible: isGameStarted,
+            child: ElevatedButton.icon(
+              onPressed: undoMove,
+              icon: const Icon(Icons.undo),
+              label: const Text('Undo'),
+              style: ElevatedButton.styleFrom(
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 20, vertical: 15),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(30.0),
+                ),
+              ),
             ),
           ),
           Visibility(
