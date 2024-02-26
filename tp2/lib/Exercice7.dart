@@ -57,36 +57,38 @@ class _Exercice7State extends State<Exercice7> {
   late List<List<Tile>> initialGrid;
   int gridSize = 3;
   double sliderValue = 3.0;
+  bool isGameStarted = false;
+  bool isPuzzleSolvedOnce = false;
 
   void initGrid() {
-  int emptyX = 0;
-  int emptyY = 0;
+    int emptyX = 0;
+    int emptyY = 0;
 
-  grid = List.generate(
-    gridSize,
-    (i) => List.generate(
+    grid = List.generate(
       gridSize,
-      (j) {
-        final int x = j;
-        final int y = i;
-        final double ratio = 1 / gridSize;
-        final Alignment alignment = Alignment(
-          -1.0 + 1 / (gridSize) + 2 * y * ratio,
-          -1.0 + 1 / (gridSize) + 2 * x * ratio,
-        );
-        if (i == emptyY && j == emptyX) {
-          return Tile('', Alignment.center, 0);
-        } else {
-          return Tile(
-              'https://as1.ftcdn.net/v2/jpg/01/41/12/10/1000_F_141121004_IpVWZBqHwvqIrMhJcohvDCM0D7S1NqkW.jpg',
-              alignment,
-              1 / (gridSize + 1));
-        }
-      },
-    ),
-  );
-  initialGrid = List.generate(gridSize, (i) => List.from(grid[i]));
-}
+      (i) => List.generate(
+        gridSize,
+        (j) {
+          final int x = j;
+          final int y = i;
+          final double ratio = 1 / gridSize;
+          final Alignment alignment = Alignment(
+            -1.0 + 1 / (gridSize) + 2 * y * ratio,
+            -1.0 + 1 / (gridSize) + 2 * x * ratio,
+          );
+          if (i == emptyY && j == emptyX) {
+            return Tile('', Alignment.center, 0);
+          } else {
+            return Tile(
+                'https://as1.ftcdn.net/v2/jpg/01/41/12/10/1000_F_141121004_IpVWZBqHwvqIrMhJcohvDCM0D7S1NqkW.jpg',
+                alignment,
+                1 / (gridSize + 1));
+          }
+        },
+      ),
+    );
+    initialGrid = List.generate(gridSize, (i) => List.from(grid[i]));
+  }
 
   @override
   void initState() {
@@ -95,30 +97,26 @@ class _Exercice7State extends State<Exercice7> {
   }
 
   void shuffleTiles() {
-  List<Tile> flattenedGrid = grid.expand((element) => element).toList();
-  flattenedGrid.shuffle(random);
-
-  int index = 0;
-  for (int i = 0; i < gridSize; i++) {
-    for (int j = 0; j < gridSize; j++) {
-      grid[i][j] = flattenedGrid[index];
-      index++;
+    initialGrid = List.generate(gridSize, (i) => List.from(grid[i]));
+    for (int i = 0; i < 1000; i++) {
+      int x = random.nextInt(gridSize);
+      int y = random.nextInt(gridSize);
+      moveTile(x, y);
     }
   }
-}
 
-    bool isPuzzleSolved() {
-  for (int i = 0; i < gridSize; i++) {
-    for (int j = 0; j < gridSize; j++) {
-      if (grid[i][j].imageURL != initialGrid[i][j].imageURL ||
-          grid[i][j].alignment != initialGrid[i][j].alignment ||
-          grid[i][j].ratio != initialGrid[i][j].ratio) {
-        return false;
+  bool isPuzzleSolved() {
+    for (int i = 0; i < gridSize; i++) {
+      for (int j = 0; j < gridSize; j++) {
+        if (grid[i][j].imageURL != initialGrid[i][j].imageURL ||
+            grid[i][j].alignment != initialGrid[i][j].alignment ||
+            grid[i][j].ratio != initialGrid[i][j].ratio) {
+          return false;
+        }
       }
     }
+    return true;
   }
-  return true;
-}
 
   void moveTile(int x, int y) {
     if (!grid[x][y].imageURL.isEmpty) {
@@ -145,24 +143,29 @@ class _Exercice7State extends State<Exercice7> {
       }
     }
 
-    if (isPuzzleSolved()) {
-      showDialog(
-        context: context,
-        builder: (BuildContext context) {
-          return AlertDialog(
-            title: Text('Félicitations !'),
-            content: Text('Vous avez résolu le taquin !'),
-            actions: [
-              TextButton(
-                onPressed: () {
-                  Navigator.of(context).pop();
-                },
-                child: Text('OK'),
-              ),
-            ],
-          );
-        },
-      );
+    if (isGameStarted && !isPuzzleSolvedOnce) {
+      if (isPuzzleSolved()) {
+        setState(() {
+          isPuzzleSolvedOnce = true;
+        });
+        showDialog(
+          context: context,
+          builder: (BuildContext context) {
+            return AlertDialog(
+              title: Text('Félicitations !'),
+              content: Text('Vous avez résolu le taquin !'),
+              actions: [
+                TextButton(
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                  },
+                  child: Text('OK'),
+                ),
+              ],
+            );
+          },
+        );
+      }
     }
   }
 
@@ -193,7 +196,7 @@ class _Exercice7State extends State<Exercice7> {
           Slider(
             min: 2,
             max: 8,
-            divisions: 7,
+            divisions: 6,
             value: sliderValue,
             label: '${sliderValue.toInt()}x${sliderValue.toInt()}',
             onChanged: (double newValue) {
@@ -208,6 +211,8 @@ class _Exercice7State extends State<Exercice7> {
             onPressed: () {
               setState(() {
                 shuffleTiles();
+                isGameStarted = true;
+                isPuzzleSolvedOnce = false;
               });
             },
             child: Text('Start'),
