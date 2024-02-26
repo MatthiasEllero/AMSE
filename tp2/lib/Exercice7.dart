@@ -30,7 +30,7 @@ class TileWidget extends StatelessWidget {
   final Tile tile;
   final VoidCallback onTap;
 
-  const TileWidget({super.key, required this.tile, required this.onTap});
+  const TileWidget({required this.tile, required this.onTap});
 
   @override
   Widget build(BuildContext context) {
@@ -44,13 +44,12 @@ class TileWidget extends StatelessWidget {
   }
 }
 
-void main() => runApp(const MaterialApp(home: Exercice7()));
+void main() => runApp(MaterialApp(home: Exercice7()));
 
 class Exercice7 extends StatefulWidget {
   const Exercice7({Key? key}) : super(key: key);
 
   @override
-  // ignore: library_private_types_in_public_api
   _Exercice7State createState() => _Exercice7State();
 }
 
@@ -65,6 +64,7 @@ class _Exercice7State extends State<Exercice7> {
   int moveCount = 0;
   late Timer _timer;
   int _seconds = 0;
+  List<List<int>> moveHistory = [];
 
   List<String> imageUrls = [
     'assets/avion.jpg',
@@ -116,17 +116,20 @@ class _Exercice7State extends State<Exercice7> {
 
   void shuffleTiles() {
     isGameStarted = false;
+    moveHistory.clear();
     for (int i = 0; i < 1000; i++) {
       int x = random.nextInt(gridSize);
       int y = random.nextInt(gridSize);
-      moveTile(x, y);
+      moveTile(x, y, addToHistory: false);
     }
     isGameStarted = true;
     startTimer();
+    moveCount = 0;
+    _seconds = 0;
   }
 
   void startTimer() {
-    _timer = Timer.periodic(const Duration(seconds: 1), (timer) {
+    _timer = Timer.periodic(Duration(seconds: 1), (timer) {
       setState(() {
         _seconds++;
       });
@@ -150,8 +153,8 @@ class _Exercice7State extends State<Exercice7> {
     return true;
   }
 
-  void moveTile(int x, int y) {
-    if (grid[x][y].imageURL.isNotEmpty) {
+  void moveTile(int x, int y, {bool addToHistory = true}) {
+    if (!grid[x][y].imageURL.isEmpty) {
       List<List<int>> deltas = [
         [-1, 0],
         [1, 0],
@@ -167,8 +170,16 @@ class _Exercice7State extends State<Exercice7> {
             newY < gridSize &&
             grid[newX][newY].imageURL.isEmpty) {
           setState(() {
+            if (addToHistory) {
+              moveHistory.add([x, y]);
+            }
             grid[newX][newY] = grid[x][y];
             grid[x][y] = Tile('', Alignment.center, 0);
+            if (addToHistory) {
+              moveCount++;
+            } else {
+              moveCount--;
+            }
           });
           break;
         }
@@ -182,7 +193,7 @@ class _Exercice7State extends State<Exercice7> {
         context: context,
         builder: (BuildContext context) {
           return AlertDialog(
-            title: const Text('Félicitations !'),
+            title: Text('Félicitations !'),
             content: Text(
                 'Vous avez résolu le taquin en $moveCount déplacements et en $_seconds secondes !'),
             actions: [
@@ -190,7 +201,7 @@ class _Exercice7State extends State<Exercice7> {
                 onPressed: () {
                   Navigator.of(context).pop();
                 },
-                child: const Text('OK'),
+                child: Text('OK'),
               ),
             ],
           );
@@ -207,7 +218,7 @@ class _Exercice7State extends State<Exercice7> {
         actions: [
           TextButton(
             onPressed: () => Navigator.pop(context),
-            child: const Text('Fermer'),
+            child: Text('Fermer'),
           ),
         ],
       ),
@@ -223,18 +234,27 @@ class _Exercice7State extends State<Exercice7> {
     }
     setState(() {
       initGrid();
+      moveCount = 0;
+      _seconds = 0;
     });
+  }
+
+  void undoMove() {
+    if (moveHistory.isNotEmpty) {
+      List<int> lastMove = moveHistory.removeLast();
+      moveTile(lastMove[0], lastMove[1], addToHistory: false);
+    }
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Taquin'),
+        title: Text('Taquin'),
         centerTitle: true,
         actions: [
           IconButton(
-            icon: const Icon(Icons.image),
+            icon: Icon(Icons.image),
             onPressed: showOriginalImage,
           ),
         ],
@@ -254,7 +274,6 @@ class _Exercice7State extends State<Exercice7> {
                   onTap: () {
                     if (isGameStarted) {
                       moveTile(x, y);
-                      moveCount++;
                     }
                   },
                 );
@@ -263,20 +282,20 @@ class _Exercice7State extends State<Exercice7> {
           ),
           Text(
             'Déplacements: $moveCount',
-            style: const TextStyle(fontSize: 20),
+            style: TextStyle(fontSize: 20),
           ),
           Text(
-            'Temps: $_seconds secondes',
-            style: const TextStyle(fontSize: 20),
+            'Timer :$_timer',
+            style: TextStyle(fontSize: 20),
           ),
-          const SizedBox(height: 20),
+          SizedBox(height: 20),
           Padding(
-            padding: const EdgeInsets.only(bottom: 100),
+            padding: EdgeInsets.only(bottom: 100),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 IconButton(
-                  icon: const Icon(Icons.arrow_back),
+                  icon: Icon(Icons.arrow_back),
                   iconSize: 60,
                   onPressed: () {
                     changeImage(-1);
@@ -286,37 +305,44 @@ class _Exercice7State extends State<Exercice7> {
                   onPressed: () {
                     setState(() {
                       if (isGameStarted) {
-                        // Arrêter le jeu
                         isGameStarted = false;
                         initGrid();
                         moveCount = 0;
                         _seconds = 0;
-                        stopTimer();
+                        moveHistory.clear();
                       } else {
-                        // Démarrer le jeu
                         shuffleTiles();
-                        moveCount = 0;
-                        _seconds = 0;
                       }
                     });
                   },
                   icon: Icon(isGameStarted ? Icons.stop : Icons.play_arrow),
                   label: Text(isGameStarted ? 'Stop' : 'Start',
-                      style: const TextStyle(fontSize: 30)),
+                      style: TextStyle(fontSize: 30)),
                   style: ElevatedButton.styleFrom(
-                    padding: const EdgeInsets.symmetric(
-                        horizontal: 20, vertical: 15),
+                    padding: EdgeInsets.symmetric(horizontal: 20, vertical: 15),
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(30.0),
                     ),
                   ),
                 ),
                 IconButton(
-                  icon: const Icon(Icons.arrow_forward),
+                  icon: Icon(Icons.arrow_forward),
                   iconSize: 60,
                   onPressed: () {
                     changeImage(1);
                   },
+                ),
+                SizedBox(width: 20),
+                ElevatedButton.icon(
+                  onPressed: undoMove,
+                  icon: Icon(Icons.undo),
+                  label: Text('Undo'),
+                  style: ElevatedButton.styleFrom(
+                    padding: EdgeInsets.symmetric(horizontal: 20, vertical: 15),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(30.0),
+                    ),
+                  ),
                 ),
               ],
             ),
@@ -332,6 +358,9 @@ class _Exercice7State extends State<Exercice7> {
                 sliderValue = newValue;
                 gridSize = newValue.toInt();
                 initGrid();
+                moveCount = 0;
+                _seconds = 0;
+                moveHistory.clear();
               });
             },
           ),
