@@ -233,7 +233,10 @@ class _Exercice7State extends State<Exercice7> {
                 return TileWidget(
                   tile: grid[x][y],
                   onTap: () {
-                    if (isGameStarted) moveTile(x, y);
+                    if (isGameStarted) {
+                      moveTile(x, y);
+                      moveCount++; // Incrémenter le compteur de déplacements
+                    }
                   },
                 );
               },
