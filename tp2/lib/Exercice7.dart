@@ -293,20 +293,20 @@ class _Exercice7State extends State<Exercice7> {
           ),
           Text(
             'Déplacements: $moveCount',
-            style: TextStyle(fontSize: 20),
+            style: const TextStyle(fontSize: 20),
           ),
           Text(
-            'Timer :$_timer',
-            style: TextStyle(fontSize: 20),
+            'Temps :$_seconds secondes',
+            style: const TextStyle(fontSize: 20),
           ),
-          SizedBox(height: 20),
+          const SizedBox(height: 20),
           Padding(
-            padding: EdgeInsets.only(bottom: 100),
+            padding: const EdgeInsets.only(bottom: 100),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 IconButton(
-                  icon: Icon(Icons.arrow_back),
+                  icon: const Icon(Icons.arrow_back),
                   iconSize: 60,
                   onPressed: () {
                     changeImage(-1);
@@ -328,28 +328,30 @@ class _Exercice7State extends State<Exercice7> {
                   },
                   icon: Icon(isGameStarted ? Icons.stop : Icons.play_arrow),
                   label: Text(isGameStarted ? 'Stop' : 'Start',
-                      style: TextStyle(fontSize: 30)),
+                      style: const TextStyle(fontSize: 30)),
                   style: ElevatedButton.styleFrom(
-                    padding: EdgeInsets.symmetric(horizontal: 20, vertical: 15),
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 20, vertical: 15),
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(30.0),
                     ),
                   ),
                 ),
                 IconButton(
-                  icon: Icon(Icons.arrow_forward),
+                  icon: const Icon(Icons.arrow_forward),
                   iconSize: 60,
                   onPressed: () {
                     changeImage(1);
                   },
                 ),
-                SizedBox(width: 20),
+                const SizedBox(width: 20),
                 ElevatedButton.icon(
                   onPressed: undoMove,
-                  icon: Icon(Icons.undo),
-                  label: Text('Undo'),
+                  icon: const Icon(Icons.undo),
+                  label: const Text('Undo'),
                   style: ElevatedButton.styleFrom(
-                    padding: EdgeInsets.symmetric(horizontal: 20, vertical: 15),
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 20, vertical: 15),
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(30.0),
                     ),
