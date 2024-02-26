@@ -60,6 +60,7 @@ class _Exercice7State extends State<Exercice7> {
   double sliderValue = 3.0;
   bool isGameStarted = false;
   bool isPuzzleSolvedOnce = false;
+  int moveCount = 0;
 
   List<String> imageUrls = [
     'assets/avion.jpg',
@@ -164,7 +165,8 @@ class _Exercice7State extends State<Exercice7> {
         builder: (BuildContext context) {
           return AlertDialog(
             title: Text('Félicitations !'),
-            content: Text('Vous avez résolu le taquin !'),
+            content:
+                Text('Vous avez résolu le taquin en $moveCount déplacements !'),
             actions: [
               TextButton(
                 onPressed: () {
@@ -241,6 +243,10 @@ class _Exercice7State extends State<Exercice7> {
               },
             ),
           ),
+          Text(
+            'Déplacements: $moveCount',
+            style: TextStyle(fontSize: 20),
+          ),
           SizedBox(height: 20),
           Padding(
             padding: EdgeInsets.only(bottom: 100),
@@ -261,9 +267,11 @@ class _Exercice7State extends State<Exercice7> {
                         // Arrêter le jeu
                         isGameStarted = false;
                         initGrid();
+                        moveCount = 0;
                       } else {
                         // Démarrer le jeu
                         shuffleTiles();
+                        moveCount = 0;
                       }
                     });
                   },
