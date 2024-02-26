@@ -300,7 +300,7 @@ class _Exercice7State extends State<Exercice7> {
             style: const TextStyle(fontSize: 20),
           ),
           Text(
-            'Temps :$_seconds secondes',
+            'Temps : $_seconds secondes',
             style: const TextStyle(fontSize: 20),
           ),
           const SizedBox(height: 20),
@@ -325,6 +325,7 @@ class _Exercice7State extends State<Exercice7> {
                         moveCount = 0;
                         _seconds = 0;
                         moveHistory.clear();
+                        stopTimer();
                       } else {
                         shuffleTiles();
                       }
