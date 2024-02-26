@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'dart:math' as math;
 
-math.Random random = new math.Random();
+math.Random random = math.Random();
 
 class Tile {
   Color? color;
@@ -21,16 +21,16 @@ class TileWidget extends StatelessWidget {
   final Tile tile;
   final VoidCallback onTap;
 
-  TileWidget({required this.tile, required this.onTap});
+  const TileWidget({super.key, required this.tile, required this.onTap});
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: onTap,
       child: Container(
-        margin: EdgeInsets.all(4),
+        margin: const EdgeInsets.all(4),
         color: tile.isEmpty ? Colors.white : tile.color,
-        child: Padding(
+        child: const Padding(
           padding: EdgeInsets.all(20), // Ajusté pour des tuiles plus petites
         ),
       ),
@@ -38,16 +38,18 @@ class TileWidget extends StatelessWidget {
   }
 }
 
-void main() => runApp(MaterialApp(home: Exercice6b()));
+void main() => runApp(const MaterialApp(home: Exercice6b()));
 
 class Exercice6b extends StatefulWidget {
+  const Exercice6b({super.key});
+
   @override
   PositionedTilesState createState() => PositionedTilesState();
 }
 
 class PositionedTilesState extends State<Exercice6b> {
   late List<List<Tile>> grid;
-  int gridSize = 2; // Taille initiale de la grille
+  int gridSize = 2;
   double sliderValue = 2.0;
 
   void initGrid() {
@@ -99,7 +101,7 @@ class PositionedTilesState extends State<Exercice6b> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Sliding Puzzle'),
+        title: const Text('Sliding Puzzle'),
         centerTitle: true,
       ),
       body: Column(
@@ -121,15 +123,15 @@ class PositionedTilesState extends State<Exercice6b> {
           ),
           Slider(
             min: 2,
-            max: 8, // 5 pour 6x5, ajusté pour permettre des valeurs discrètes
+            max: 8,
             divisions: 6,
             value: sliderValue,
             label: '${sliderValue.toInt()}x${sliderValue.toInt()}',
             onChanged: (double newValue) {
               setState(() {
                 sliderValue = newValue;
-                gridSize = newValue.toInt(); // Convertir en taille de grille
-                initGrid(); // Réinitialiser la grille avec la nouvelle taille
+                gridSize = newValue.toInt();
+                initGrid();
               });
             },
           ),

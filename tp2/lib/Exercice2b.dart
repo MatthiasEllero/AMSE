@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
-import 'dart:async'; // Importez dart:async pour utiliser Timer
+import 'dart:async';
 import 'dart:math' as math;
 
 class Exercice2b extends StatefulWidget {
+  const Exercice2b({super.key});
+
   @override
+  // ignore: library_private_types_in_public_api
   _Exercice2bState createState() => _Exercice2bState();
 }
 
@@ -12,18 +15,17 @@ class _Exercice2bState extends State<Exercice2b> {
   double _rotationZ = 0;
   double _scale = 1;
   bool _isMirrored = false;
-  Timer? _timer; // Déclaration d'une variable Timer
-  bool _isAnimating = false; // État de suivi de l'animation
+  Timer? _timer;
+  bool _isAnimating = false;
 
   void startAnimation() {
-    const duration = Duration(
-        milliseconds: 50); // Durée entre chaque appel de la fonction animate
-    _timer = Timer.periodic(duration, animate); // Initialisation du Timer
+    const duration = Duration(milliseconds: 50);
+    _timer = Timer.periodic(duration, animate);
     _isAnimating = true;
   }
 
   void stopAnimation() {
-    _timer?.cancel(); // Annuler le Timer
+    _timer?.cancel();
     _isAnimating = false;
   }
 
@@ -37,7 +39,7 @@ class _Exercice2bState extends State<Exercice2b> {
 
   @override
   void dispose() {
-    _timer?.cancel(); // Annuler le Timer lorsque le widget est disposé
+    _timer?.cancel();
     super.dispose();
   }
 
@@ -45,7 +47,7 @@ class _Exercice2bState extends State<Exercice2b> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Transformations d\'image'),
+        title: const Text('Transformations d\'image'),
       ),
       body: SingleChildScrollView(
         child: Column(
@@ -53,7 +55,7 @@ class _Exercice2bState extends State<Exercice2b> {
           children: <Widget>[
             Transform(
               transform: Matrix4.identity()
-                ..setEntry(3, 2, 0.001) // perspective
+                ..setEntry(3, 2, 0.001)
                 ..rotateX(_rotationX)
                 ..rotateZ(_rotationZ)
                 ..scale(_isMirrored ? -_scale : _scale, _scale),
@@ -81,7 +83,7 @@ class _Exercice2bState extends State<Exercice2b> {
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Text("Miroir"),
+                const Text("Miroir"),
                 Switch(
                   value: _isMirrored,
                   onChanged: (value) {
@@ -123,7 +125,7 @@ class _Exercice2bState extends State<Exercice2b> {
               min: min,
               max: max,
               divisions: 100,
-              label: "${(value * conversionFactor).toStringAsFixed(2)}",
+              label: (value * conversionFactor).toStringAsFixed(2),
               onChanged: onChanged,
             ),
           ),
