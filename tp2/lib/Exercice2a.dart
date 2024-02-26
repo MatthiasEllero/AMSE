@@ -2,7 +2,10 @@ import 'package:flutter/material.dart';
 import 'dart:math' as math;
 
 class Exercice2a extends StatefulWidget {
+  const Exercice2a({super.key});
+
   @override
+  // ignore: library_private_types_in_public_api
   _Exercice2aState createState() => _Exercice2aState();
 }
 
@@ -10,13 +13,13 @@ class _Exercice2aState extends State<Exercice2a> {
   double _rotationX = 0;
   double _rotationZ = 0;
   double _scale = 1;
-  bool _isMirrored = false; // Ajout d'un état pour l'effet miroir
+  bool _isMirrored = false;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Transformations d\'image'),
+        title: const Text('Transformations d\'image'),
       ),
       body: SingleChildScrollView(
         child: Column(
@@ -24,11 +27,10 @@ class _Exercice2aState extends State<Exercice2a> {
           children: <Widget>[
             Transform(
               transform: Matrix4.identity()
-                ..setEntry(3, 2, 0.001) // perspective
+                ..setEntry(3, 2, 0.001)
                 ..rotateX(_rotationX)
                 ..rotateZ(_rotationZ)
-                ..scale(_isMirrored ? -_scale : _scale,
-                    _scale), // Appliquer l'effet miroir sur l'axe X
+                ..scale(_isMirrored ? -_scale : _scale, _scale),
               alignment: FractionalOffset.center,
               child: Image.network(
                   'https://www.boutique-namaste.com/cdn/shop/articles/animal-totem-aigle_1600x.jpg?v=1670453691',
@@ -53,7 +55,7 @@ class _Exercice2aState extends State<Exercice2a> {
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Text("Miroir"),
+                const Text("Miroir"),
                 Switch(
                   value: _isMirrored,
                   onChanged: (value) {
@@ -82,7 +84,7 @@ class _Exercice2aState extends State<Exercice2a> {
             min: min,
             max: max,
             divisions: 100,
-            label: "${(value * conversionFactor).toStringAsFixed(2)}",
+            label: (value * conversionFactor).toStringAsFixed(2),
             onChanged: onChanged,
           ),
         ),

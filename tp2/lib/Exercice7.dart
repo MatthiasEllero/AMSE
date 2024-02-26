@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'dart:math' as math;
 
-math.Random random = new math.Random();
+math.Random random = math.Random();
 
 class Tile {
   String imageURL;
@@ -14,13 +14,11 @@ class Tile {
     return FittedBox(
       fit: BoxFit.fill,
       child: ClipRect(
-        child: Container(
-          child: Align(
-            alignment: alignment,
-            widthFactor: ratio,
-            heightFactor: ratio,
-            child: Image.network(imageURL),
-          ),
+        child: Align(
+          alignment: alignment,
+          widthFactor: ratio,
+          heightFactor: ratio,
+          child: Image.network(imageURL),
         ),
       ),
     );
@@ -31,14 +29,14 @@ class TileWidget extends StatelessWidget {
   final Tile tile;
   final VoidCallback onTap;
 
-  TileWidget({required this.tile, required this.onTap});
+  const TileWidget({required this.tile, required this.onTap});
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: onTap,
       child: Container(
-        margin: EdgeInsets.all(4),
+        margin: const EdgeInsets.all(4),
         child: tile.croppedImageTile(),
       ),
     );
@@ -48,7 +46,10 @@ class TileWidget extends StatelessWidget {
 void main() => runApp(MaterialApp(home: Exercice7()));
 
 class Exercice7 extends StatefulWidget {
+  const Exercice7({super.key});
+
   @override
+  // ignore: library_private_types_in_public_api
   _Exercice7State createState() => _Exercice7State();
 }
 
@@ -112,7 +113,7 @@ class _Exercice7State extends State<Exercice7> {
 
   void shuffleTiles() {
     isGameStarted = false;
-    for (int i = 0; i < 1000; i++) {
+    for (int i = 0; i < 10000; i++) {
       int x = random.nextInt(gridSize);
       int y = random.nextInt(gridSize);
       moveTile(x, y);
@@ -134,7 +135,7 @@ class _Exercice7State extends State<Exercice7> {
   }
 
   void moveTile(int x, int y) {
-    if (!grid[x][y].imageURL.isEmpty) {
+    if (grid[x][y].imageURL.isNotEmpty) {
       List<List<int>> deltas = [
         [-1, 0],
         [1, 0],
@@ -164,15 +165,14 @@ class _Exercice7State extends State<Exercice7> {
         context: context,
         builder: (BuildContext context) {
           return AlertDialog(
-            title: Text('Félicitations !'),
-            content:
-                Text('Vous avez résolu le taquin en $moveCount déplacements !'),
+            title: const Text('Félicitations !'),
+            content: const Text('Vous avez résolu le taquin !'),
             actions: [
               TextButton(
                 onPressed: () {
                   Navigator.of(context).pop();
                 },
-                child: Text('OK'),
+                child: const Text('OK'),
               ),
             ],
           );
@@ -189,7 +189,7 @@ class _Exercice7State extends State<Exercice7> {
         actions: [
           TextButton(
             onPressed: () => Navigator.pop(context),
-            child: Text('Fermer'),
+            child: const Text('Fermer'),
           ),
         ],
       ),
@@ -212,11 +212,11 @@ class _Exercice7State extends State<Exercice7> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Taquin'),
+        title: const Text('Taquin'),
         centerTitle: true,
         actions: [
           IconButton(
-            icon: Icon(Icons.image),
+            icon: const Icon(Icons.image),
             onPressed: showOriginalImage,
           ),
         ],
@@ -243,33 +243,30 @@ class _Exercice7State extends State<Exercice7> {
               },
             ),
           ),
-          Text(
-            'Déplacements: $moveCount',
-            style: TextStyle(fontSize: 20),
-          ),
-          SizedBox(height: 20),
+          const SizedBox(height: 20),
           Padding(
-            padding: EdgeInsets.only(bottom: 100),
+            padding: const EdgeInsets.only(bottom: 100),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                IconButton(
-                  icon: Icon(Icons.arrow_back),
-                  iconSize: 60,
-                  onPressed: () {
-                    changeImage(-1);
-                  },
+                Visibility(
+                  visible: !isGameStarted,
+                  child: IconButton(
+                    icon: const Icon(Icons.arrow_back),
+                    iconSize: 60,
+                    onPressed: () {
+                      changeImage(-1);
+                    },
+                  ),
                 ),
                 ElevatedButton.icon(
                   onPressed: () {
                     setState(() {
                       if (isGameStarted) {
-                        // Arrêter le jeu
                         isGameStarted = false;
                         initGrid();
                         moveCount = 0;
                       } else {
-                        // Démarrer le jeu
                         shuffleTiles();
                         moveCount = 0;
                       }
@@ -277,37 +274,44 @@ class _Exercice7State extends State<Exercice7> {
                   },
                   icon: Icon(isGameStarted ? Icons.stop : Icons.play_arrow),
                   label: Text(isGameStarted ? 'Stop' : 'Start',
-                      style: TextStyle(fontSize: 30)),
+                      style: const TextStyle(fontSize: 30)),
                   style: ElevatedButton.styleFrom(
-                    padding: EdgeInsets.symmetric(horizontal: 20, vertical: 15),
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 20, vertical: 15),
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(30.0),
                     ),
                   ),
                 ),
-                IconButton(
-                  icon: Icon(Icons.arrow_forward),
-                  iconSize: 60,
-                  onPressed: () {
-                    changeImage(1);
-                  },
+                Visibility(
+                  visible: !isGameStarted,
+                  child: IconButton(
+                    icon: const Icon(Icons.arrow_forward),
+                    iconSize: 60,
+                    onPressed: () {
+                      changeImage(1);
+                    },
+                  ),
                 ),
               ],
             ),
           ),
-          Slider(
-            min: 2,
-            max: 8,
-            divisions: 6,
-            value: sliderValue,
-            label: '${sliderValue.toInt()}x${sliderValue.toInt()}',
-            onChanged: (double newValue) {
-              setState(() {
-                sliderValue = newValue;
-                gridSize = newValue.toInt();
-                initGrid();
-              });
-            },
+          Visibility(
+            visible: !isGameStarted,
+            child: Slider(
+              min: 2,
+              max: 8,
+              divisions: 6,
+              value: sliderValue,
+              label: '${sliderValue.toInt()}x${sliderValue.toInt()}',
+              onChanged: (double newValue) {
+                setState(() {
+                  sliderValue = newValue;
+                  gridSize = newValue.toInt();
+                  initGrid();
+                });
+              },
+            ),
           ),
         ],
       ),

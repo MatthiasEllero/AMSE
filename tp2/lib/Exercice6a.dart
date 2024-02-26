@@ -1,45 +1,39 @@
 import 'package:flutter/material.dart';
 import 'dart:math' as math;
 
-// ==============
-// Models
-// ==============
-
-math.Random random = new math.Random();
+math.Random random = math.Random();
 
 class Tile {
-  late Color color; // Marquage de `color` comme late
+  late Color color;
 
   Tile(this.color);
   Tile.randomColor() {
-    this.color = Color.fromARGB(
+    color = Color.fromARGB(
         255, random.nextInt(255), random.nextInt(255), random.nextInt(255));
   }
 }
 
-// ==============
-// Widgets
-// ==============
-
 class TileWidget extends StatelessWidget {
   final Tile tile;
 
-  TileWidget(this.tile);
+  const TileWidget(this.tile, {super.key});
 
   @override
   Widget build(BuildContext context) {
     return Container(
       color: tile.color,
-      child: Padding(
+      child: const Padding(
         padding: EdgeInsets.all(70.0),
       ),
     );
   }
 }
 
-void main() => runApp(MaterialApp(home: Exercice6a()));
+void main() => runApp(const MaterialApp(home: Exercice6a()));
 
 class Exercice6a extends StatefulWidget {
+  const Exercice6a({super.key});
+
   @override
   PositionedTilesState createState() => PositionedTilesState();
 }
@@ -54,13 +48,13 @@ class PositionedTilesState extends State<Exercice6a> {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text('Moving Tiles'),
+        title: const Text('Moving Tiles'),
         centerTitle: true,
       ),
       body: Row(children: tileWidgets),
       floatingActionButton: FloatingActionButton(
-        child: Icon(Icons.swap_horiz),
         onPressed: swapTiles,
+        child: const Icon(Icons.swap_horiz),
       ),
     );
   }
