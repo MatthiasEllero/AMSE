@@ -236,7 +236,7 @@ class _Exercice7State extends State<Exercice7> {
                   onTap: () {
                     if (isGameStarted) {
                       moveTile(x, y);
-                      moveCount++; // Incrémenter le compteur de déplacements
+                      moveCount++;
                     }
                   },
                 );
@@ -265,10 +265,8 @@ class _Exercice7State extends State<Exercice7> {
                       if (isGameStarted) {
                         isGameStarted = false;
                         initGrid();
-                        moveCount = 0;
                       } else {
                         shuffleTiles();
-                        moveCount = 0;
                       }
                     });
                   },
