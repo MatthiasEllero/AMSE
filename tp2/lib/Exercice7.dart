@@ -359,20 +359,22 @@ class _Exercice7State extends State<Exercice7> {
             ),
           ),
           Visibility(
-            visible: isGameStarted,
-            child: ElevatedButton.icon(
-              onPressed: undoMove,
-              icon: const Icon(Icons.undo),
-              label: const Text('Undo'),
-              style: ElevatedButton.styleFrom(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 20, vertical: 15),
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(30.0),
+              visible: isGameStarted,
+              child: Padding(
+                padding: const EdgeInsets.only(bottom: 40),
+                child: ElevatedButton.icon(
+                  onPressed: undoMove,
+                  icon: const Icon(Icons.undo),
+                  label: const Text('Undo'),
+                  style: ElevatedButton.styleFrom(
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 20, vertical: 15),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(30.0),
+                    ),
+                  ),
                 ),
-              ),
-            ),
-          ),
+              )),
           Visibility(
             visible: !isGameStarted,
             child: Slider(
