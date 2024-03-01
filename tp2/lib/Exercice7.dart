@@ -256,7 +256,7 @@ class _Exercice7State extends State<Exercice7> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Taquin'),
+        title: const Text('Taquin complet'),
         centerTitle: true,
         actions: [
           IconButton(

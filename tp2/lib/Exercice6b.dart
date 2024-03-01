@@ -101,7 +101,7 @@ class PositionedTilesState extends State<Exercice6b> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Sliding Puzzle'),
+        title: const Text('Taquin sans image'),
         centerTitle: true,
       ),
       body: Column(

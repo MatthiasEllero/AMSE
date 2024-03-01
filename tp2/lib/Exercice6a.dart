@@ -46,7 +46,7 @@ class PositionedTilesState extends State<Exercice6a> {
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Moving Tiles'),
+        title: const Text('Echange de tuiles'),
         centerTitle: true,
       ),
       body: Row(children: tileWidgets),

@@ -35,7 +35,7 @@ class Exercice4 extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Display a Tile as a Cropped Image'),
+        title: const Text('Affichage tuile'),
         centerTitle: true,
       ),
       body: Center(
